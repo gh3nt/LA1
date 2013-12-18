@@ -24,7 +24,7 @@ public class Test {
 		
 		//test pobierania informacji ze strony jsoup
 		
-		String adres = "https://pzn.pkn.pl/pzn-share/page/pzn/polling";
+		String adres = "https://pzn.pkn.pl/kt/?pid=ppnlp&id=237&back=kt";
 		Document doc = null;
 		
 		/*
@@ -55,7 +55,7 @@ public class Test {
 		
 		try {
 			System.out.println("start sleep");
-		    Thread.sleep(90000);
+		    Thread.sleep(9000);
 		    System.out.println("stop sleep");
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
