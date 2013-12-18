@@ -101,7 +101,7 @@ public class ProjektNormy {
 	 * @param b
 	 */
 	public void setZharmonizowana(boolean b){
-		this.zharmonizowana = b;
+		zharmonizowana = b;
 	}
 	/**
 	 * Czy projekt normy jest na liœcie norm zharmonizowanych
@@ -116,14 +116,14 @@ public class ProjektNormy {
 	 * @param b
 	 */
 	public void setAkredytacja(boolean b){
-		this.akredytacja = b;
+		akredytacja = b;
 	}
 	/**
 	 * Czy projekt normy jest w zakresie akredytacjiITB
 	 * @return 
 	 */
 	public boolean getAkredytacja(){
-		return zharmonizowana;
+		return akredytacja;
 	}
 	
 	/**
@@ -148,18 +148,18 @@ public class ProjektNormy {
 	 * @return
 	 */
 	public static String skrocNumer(String numer){
+		
 		String numerKrotki = "";
-		
-		
-		//znajdz pierwsz¹ cyfrê w ci¹gu
 		char[] znaki = numer.toCharArray();
 		
 		//poczatek i koniec substringa
-		int pocz;
-		int kon;
+		int pocz = -1;
+		int kon = -1;
 		
+		//zmienna pomocnicza do testowania znaków w tablicy
 		int i;
 		
+		//znajdŸ pocz¹tek numeru (pierwsz¹ cyfrê)
 		for(i = 0; i < znaki.length; i++){
 			if (Character.isDigit(znaki[i])){
 				pocz = i;
@@ -167,15 +167,28 @@ public class ProjektNormy {
 			}
 		}
 		
+		//znajdŸ koniec numeru (znak po pierwszej cyfrze, który nie jest cyfr¹ ani "-"
 		for(; i < znaki.length; i++){
-			//if (! ((Character.isDigit(znaki[i]) ) )
+			if (! ((Character.isDigit(znaki[i])) || (znaki[i] == '-') ) ){
+				kon = i;
+				break;
+			}
 		}
 		
-		
-		
-		//wybierz ci¹g od piwerwszej cyfry do dowolnego znaku innego ni¿ cyfra i "-"
+		//je¿eli zosta³a znaleziona jakaœ cyfra (pocz¹tek numeru)
+		if (pocz != -1 ){
+			//je¿eli zosta³ znaleziony znak po numerze - pobierz numer od pocz¹tku do koñca numeru
+			if (kon != -1){
+				numerKrotki = numer.substring(pocz, kon);
+			} 
+			//je¿eli nie zosta³ znaleziony znak po numerze - pobierz numer od pocz¹tku do koñca ca³ego numeru
+			else {
+				numerKrotki = numer.substring(pocz);
+			}
+		}
 		
 		return numerKrotki;
 	}
 
+	
 }
