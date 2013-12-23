@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 
 	//obiekt zarz¹dzaj¹cy operacjami na stronach internetowych
-	WebManager wm = new WebManager();
+	//WebManager wm = new WebManager();
 	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	JSplitPane splitPane;
