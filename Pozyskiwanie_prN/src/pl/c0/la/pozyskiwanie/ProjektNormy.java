@@ -1,5 +1,7 @@
 package pl.c0.la.pozyskiwanie;
 
+import java.io.Serializable;
+
 /**
  * 
  * Klasa, której obiekty przechowuj¹ informacje o projektach norm poddanych ankiecie powszechnej PKN
@@ -7,7 +9,7 @@ package pl.c0.la.pozyskiwanie;
  * @author ght
  *
  */
-public class ProjektNormy {
+public class ProjektNormy implements Serializable{
 	
 	//pe³ny numer projektu (typu prPN-prEN 21344-3:11/A1...)
 	private String numer;
@@ -22,7 +24,7 @@ public class ProjektNormy {
 	private String nazwaEN;
 	
 	//zakres projektu po polsku
-	private String zakres;
+	private String zakresPL;
 	
 	//zakres projektu po angielsku
 	private String zakresEN;
@@ -30,8 +32,8 @@ public class ProjektNormy {
 	//data koñca ankiety - jako string
 	private String koniecAnkiety;
 	
-	//numer Komitetu Technicznego, który pracuje nad projektem
-	private int nrKT;
+	//numer Komitetu Technicznego, który pracuje nad projektem (domyœlnie zero, jezeli brak informacji o KT)
+	private int nrKT = 0;
 	
 	//czy norma jest zharmonizowana
 	private boolean zharmonizowana;
@@ -56,10 +58,30 @@ public class ProjektNormy {
 		this.numerKrotki = skrocNumer(numer);
 		this.nazwa = nazwa;
 		this.nazwaEN = nazwaEN;
+		this.zakresPL = zakresPL;
 		this.zakresEN = zakresEN;
 		this.koniecAnkiety = koniecAnkiety;
 		
 	}
+	
+	/**
+	 * Konstruktor z za³o¿enia ma przyjmowaæ dane dostêpne na stronie PKN z ogloszeniem o ankiecie powszechnej 
+	 * @param nrKT
+	 * @param numer
+	 * @param nazwa
+	 * @param nazwaEN
+	 * @param koniecAnkiety
+	 */
+	public ProjektNormy(int nrKT, String numer, String nazwa, String nazwaEN, String koniecAnkiety){
+		this.nrKT = nrKT;
+		this.numer = numer;
+		this.numerKrotki = skrocNumer(numer);
+		this.nazwa = nazwa;
+		this.nazwaEN = nazwaEN;
+		this.koniecAnkiety = koniecAnkiety;
+	}
+	
+	
 	
 	public String getNumer(){
 		return numer;
@@ -78,7 +100,7 @@ public class ProjektNormy {
 	}
 	
 	public String getZakres(){
-		return zakres;
+		return zakresPL;
 	}
 	
 	public String getZakresEN(){
@@ -188,6 +210,10 @@ public class ProjektNormy {
 		}
 		
 		return numerKrotki;
+	}
+	
+	public String toString(){
+		return numer + " " + nazwa + " (KT " + nrKT + ") :" + koniecAnkiety;    
 	}
 
 	

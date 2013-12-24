@@ -11,16 +11,20 @@ import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
-
-	//obiekt zarz¹dzaj¹cy operacjami na stronach internetowych
-	//WebManager wm = new WebManager();
+	
+	//adres strony ankiety powszechnej
+	private String urlAnkiety = "https://pzn.pkn.pl/pzn-share/page/pzn/polling";
+	
+	//sciezka dostêpu do pliku Excela, gdzie bêd¹ wklejane informacje
+	private String plik = "c:\\temp\\test.xlsx";
 	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
-	JSplitPane splitPane;
+	private JSplitPane splitPane;
 	
 	
 	/**
@@ -73,17 +77,35 @@ public class MainFrame extends JFrame {
 	}
 	
 	/**
-	 * Wykonuje procedurê pobrania informacji o projektach norm z pliku excela do tabeli, zmienia panel dolny na ten z tabel¹
+	 * Przekazuje do panelu 2 listê norm z pliku excela do tabeli, zmienia panel dolny na ten z tabel¹
 	 */
-	public void pobierzNormyDoTabeli(){
-		pokazPanel2();
+	public void krok2(ArrayList<ProjektNormy> listaPN){
+		Panel2 panel2 = new Panel2(listaPN);
+		
+		pokazPanel(panel2);
 	}
 	
 	/**
 	 * wyswietla nowy panel 2 w dolnej czêœci g³ównego panelu
 	 */
-	private void pokazPanel2(){
-		splitPane.setRightComponent(new Panel2());
+	private void pokazPanel(JPanel panel){
+		splitPane.setRightComponent(panel);
+	}
+	
+	/**
+	 * zwraca adres strony internetowej ankiety powszechnej
+	 * @return 
+	 */
+	public String getAdresAnkiety(){
+		return urlAnkiety;
+	}
+	
+	/**
+	 * zwraca œcie¿kê dostêpu do pliku Excela, do którego maj¹ byæ wklejone dan odczytywane póŸniej przez sytem
+	 */
+	
+	public String getPlik(){
+		return plik;
 	}
 
 }

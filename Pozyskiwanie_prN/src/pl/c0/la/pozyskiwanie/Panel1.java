@@ -11,7 +11,10 @@ public class Panel1 extends JPanel {
 	private JTextField textField_1;
 	
 	//nadrzêdna ramka (JFrame)
-	public final MainFrame parent;
+	public MainFrame parent;
+	
+	//kontroler panelu
+	private Panel1Controller controller = new Panel1Controller(parent);
 
 	/**
 	 * Create the panel.
@@ -34,6 +37,11 @@ public class Panel1 extends JPanel {
 		add(lblAdresStronyAnkiety);
 		
 		JButton btnOtwrz = new JButton("Otw\u00F3rz");
+		btnOtwrz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.otworzStrone(textField.getText());
+			}
+		});
 		btnOtwrz.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnOtwrz.setBounds(263, 77, 89, 23);
 		add(btnOtwrz);
@@ -42,6 +50,7 @@ public class Panel1 extends JPanel {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				uzupelnijPole1();
 			}
 		});
 		btnNewButton.setBounds(361, 77, 140, 23);
@@ -59,11 +68,21 @@ public class Panel1 extends JPanel {
 		textField_1.setColumns(10);
 		
 		JButton btnOtwrz_1 = new JButton("Otw\u00F3rz");
+		btnOtwrz_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.otworzPlikExcela(textField_1.getText());
+			}
+		});
 		btnOtwrz_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnOtwrz_1.setBounds(263, 160, 89, 23);
 		add(btnOtwrz_1);
 		
 		JButton btnPrzywrDomylny = new JButton("Przywr\u00F3\u0107 domy\u015Blny");
+		btnPrzywrDomylny.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				uzupelnijPole2();
+			}
+		});
 		btnPrzywrDomylny.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnPrzywrDomylny.setBounds(361, 160, 140, 23);
 		add(btnPrzywrDomylny);
@@ -71,7 +90,7 @@ public class Panel1 extends JPanel {
 		JButton btnRozpocznij = new JButton("Rozpocznij");
 		btnRozpocznij.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rozpocznij();
+				controller.rozpocznij(textField_1.getText());
 			}
 		});
 		btnRozpocznij.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -79,9 +98,24 @@ public class Panel1 extends JPanel {
 		btnRozpocznij.setBackground(UIManager.getColor("Button.background"));
 		btnRozpocznij.setBounds(263, 231, 103, 35);
 		add(btnRozpocznij);
+		
+		uzupelnijPole1();
+		uzupelnijPole2();
 
 	}
-	protected void rozpocznij(){
-		parent.pobierzNormyDoTabeli();
+	
+	//uzupelnij pole adresu www domyœlnym adresem
+	private void uzupelnijPole1() {
+		//adres www
+		textField.setText(parent.getAdresAnkiety());
 	}
+	
+	//uzupelnij pole sciezki dostêpu do pliku
+		private void uzupelnijPole2() {
+			//sciezka i nazwa pliku Excela
+			textField_1.setText(parent.getPlik());
+		}
+	
+
+	
 }
