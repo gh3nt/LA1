@@ -36,6 +36,7 @@ public class Panel1Controller {
 	public void rozpocznij(String plik){
 		ArrayList<ProjektNormy> listaPN = fm.pobierzProjekty(plik);
 		
+		System.out.println("size: " + listaPN.size());
 		
 		parent.krok2(listaPN);
 		

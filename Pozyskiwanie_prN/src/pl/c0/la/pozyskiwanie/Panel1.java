@@ -14,7 +14,7 @@ public class Panel1 extends JPanel {
 	public MainFrame parent;
 	
 	//kontroler panelu
-	private Panel1Controller controller = new Panel1Controller(parent);
+	private Panel1Controller controller; 
 
 	/**
 	 * Create the panel.
@@ -22,6 +22,7 @@ public class Panel1 extends JPanel {
 	public Panel1(MainFrame parent) {
 		
 		this.parent = parent;
+		controller = new Panel1Controller(parent);
 				
 		setLayout(null);
 		
