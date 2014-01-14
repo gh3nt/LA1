@@ -35,6 +35,9 @@ public class ProjektNormy implements Serializable{
 	//numer Komitetu Technicznego, który pracuje nad projektem (domyœlnie zero, jezeli brak informacji o KT)
 	private int nrKT = 0;
 	
+	//nazwa Komitetu Technicznego, który pracuje nad projektem 
+	private String nazwaKT = "n/a";
+	
 	//czy norma jest zharmonizowana
 	private boolean zharmonizowana;
 	
@@ -65,7 +68,7 @@ public class ProjektNormy implements Serializable{
 	}
 	
 	/**
-	 * Konstruktor z za³o¿enia ma przyjmowaæ dane dostêpne na stronie PKN z ogloszeniem o ankiecie powszechnej 
+	 * Konstruktor z za³o¿enia ma przyjmowaæ dane dostêpne na stronie PKN z ogloszeniem o ankiecie powszechnej (po zmianie strony w grudniu 2013)
 	 * @param nrKT
 	 * @param numer
 	 * @param nazwa
@@ -79,10 +82,21 @@ public class ProjektNormy implements Serializable{
 		this.nazwa = nazwa;
 		this.nazwaEN = nazwaEN;
 		this.koniecAnkiety = koniecAnkiety;
+		this.nazwaKT = SprawdzNazweKT(nrKT);
 	}
 	
 	
-	
+	/**
+	 * Sprawdza nazwê KT o podanym numerze
+	 * @param Numer KT do sprawdzenia
+	 * @return Nazwa KT
+	 */
+	private String SprawdzNazweKT(int nrKT) {
+		//do zrobienia. ma sprawdzaæ nazwê KT o danym numerze, najlepiej na podstawie strony www, ew. na podstawie jakiejœ listy
+		nazwaKT = "n/a";
+		return nazwaKT;
+	}
+
 	public String getNumer(){
 		return numer;
 	}
@@ -114,6 +128,7 @@ public class ProjektNormy implements Serializable{
 	public void setNrKt(int nrKT){
 		this.nrKT = nrKT;
 	}
+	
 	public int getNrKT(){
 		return nrKT;
 	}
@@ -125,6 +140,7 @@ public class ProjektNormy implements Serializable{
 	public void setZharmonizowana(boolean b){
 		zharmonizowana = b;
 	}
+	
 	/**
 	 * Czy projekt normy jest na liœcie norm zharmonizowanych
 	 * @return 
@@ -140,6 +156,7 @@ public class ProjektNormy implements Serializable{
 	public void setAkredytacja(boolean b){
 		akredytacja = b;
 	}
+	
 	/**
 	 * Czy projekt normy jest w zakresie akredytacjiITB
 	 * @return 
@@ -148,6 +165,7 @@ public class ProjektNormy implements Serializable{
 		return akredytacja;
 	}
 	
+	
 	/**
 	 * czy zakres tematyczny projektu normy jest zwi¹zany z dzia³alnoœci¹ ITB
 	 * @param b
@@ -155,6 +173,7 @@ public class ProjektNormy implements Serializable{
 	public void setZwiazany(boolean b){
 		zwiazany = b;
 	}
+	
 	/**
 	 * czy zakres tematyczny projektu normy jest zwi¹zany z dzia³alnoœci¹ ITB
 	 * @return
@@ -163,6 +182,12 @@ public class ProjektNormy implements Serializable{
 		return zwiazany;
 	}
 	
+	/**
+	 * zwraca nazwê KT opracowuj¹cego normê
+	 */
+	public String getNazwaKT(){
+		return nazwaKT;
+	}
 	
 	/**
 	 * Z pe³nego numeru projektu normy (typu prPN-prEN 12345-3:2011/prA1 wybiera tylko numer normy, bez daty czyli np. 12345-3
