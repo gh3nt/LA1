@@ -14,8 +14,7 @@ public class TickTableModel extends AbstractTableModel {
 
 	//lista projektów norm
 	ArrayList<ProjektNormy> listaPN;
-	
-	//lista ticków 
+
 	
 	public TickTableModel(ArrayList<ProjektNormy> listaPN){
 		this.listaPN = listaPN;
@@ -53,7 +52,7 @@ public class TickTableModel extends AbstractTableModel {
 					break;
 			case 6: o = listaPN.get(arg0).getZharmonizowana(); 
 					break;
-			case 7: o = listaPN.get(arg0).getNazwaKT(); 
+			case 7: o = listaPN.get(arg0).getZwiazany(); 
 					break;
 			default: o = "B³êdna wartoœæ";
 					break;
@@ -61,5 +60,83 @@ public class TickTableModel extends AbstractTableModel {
 		return o;
 	}
 
+	/**
+	 * zwraca klasê Class<?> do której bêd¹ nale¿ec wartoœci w danej kolumnie
+	 */
+	@Override
+	public Class<?> getColumnClass(int arg1){
+		Class c = null;
+		
+		// pobierz odpowiedni¹ wartoœæ z odpowiedniego obiektu na liœcie
+		switch (arg1){
+			case 0: c = String.class;
+					break;
+			case 1: c = String.class; 
+					break;
+			case 2: c = Integer.class; 
+					break;
+			case 3: c = String.class; 
+					break;
+			case 4: c = String.class; 
+					break;
+			case 5: c = Boolean.class; 
+					break;
+			case 6: c = Boolean.class;
+					break;
+			case 7: c = Boolean.class;
+					break;
+			default: c = Object.class;
+					break;
+		}
+		return c;
+	}
+	
+	/**
+	 * zwraca nazwê kolumny o podanym numerze
+	 */
+	public String getColumnName(int arg1){
+		String cn = "";
+		
+		switch (arg1){
+		case 0: cn = "Numer";
+				break;
+		case 1: cn = "Tytu³"; 
+				break;
+		case 2: cn = "Nr KT"; 
+				break;
+		case 3: cn = "Nazwa KT"; 
+				break;
+		case 4: cn = "Koniec ankiety"; 
+				break;
+		case 5: cn = "W akredytacji"; 
+				break;
+		case 6: cn = "Zharmonizowana";
+				break;
+		case 7: cn = "Do ankiety wew.";
+				break;
+		default: cn = "n/a";
+				break;
+		}
+		
+		return cn;
+		
+	}
+	
+	/**
+	 * okreœla, czy komórki sa edytowalne. Tak - tylko dla kolumny 7 ("Do ankiety wewnêtrznej")
+	 */
+	public boolean isCellEditable(int rowIndex, int colIndex){
+		if (colIndex == 7) return true;
+		else return false;
+	}
+	
+	/**
+	 * zmienia wartoœæ komórki (tylko dla kolumny 7)
+	 */
+	public void setValueAt(Object val, int rowIndex, int colIndex){
+		if ((colIndex == 7) && (val instanceof Boolean)){
+			listaPN.get(rowIndex).setZwiazany((Boolean)val);
+		}
+	}
 	
 }
