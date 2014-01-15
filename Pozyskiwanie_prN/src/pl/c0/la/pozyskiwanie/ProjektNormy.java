@@ -240,6 +240,8 @@ public class ProjektNormy implements Serializable{
 	public String toString(){
 		return numer + " " + nazwa + " (KT " + nrKT + ") :" + koniecAnkiety;    
 	}
+	
+	
 
 	
 }

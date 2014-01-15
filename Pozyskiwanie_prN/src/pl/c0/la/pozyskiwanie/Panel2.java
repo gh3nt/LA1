@@ -21,7 +21,7 @@ public class Panel2 extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Panel2(ArrayList<ProjektNormy> listaPN, MainFrame parent) {
+	public Panel2(MyArrayList listaPN, MainFrame parent) {
 		
 		//usuñ managera uk³adu
 		setLayout(null);

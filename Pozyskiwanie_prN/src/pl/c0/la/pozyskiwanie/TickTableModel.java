@@ -13,10 +13,10 @@ import javax.swing.table.AbstractTableModel;
 public class TickTableModel extends AbstractTableModel {
 
 	//lista projektów norm
-	ArrayList<ProjektNormy> listaPN;
+	MyArrayList listaPN;
 
 	
-	public TickTableModel(ArrayList<ProjektNormy> listaPN){
+	public TickTableModel(MyArrayList listaPN){
 		this.listaPN = listaPN;
 	}
 	
@@ -136,6 +136,7 @@ public class TickTableModel extends AbstractTableModel {
 	public void setValueAt(Object val, int rowIndex, int colIndex){
 		if ((colIndex == 7) && (val instanceof Boolean)){
 			listaPN.get(rowIndex).setZwiazany((Boolean)val);
+			
 		}
 	}
 	

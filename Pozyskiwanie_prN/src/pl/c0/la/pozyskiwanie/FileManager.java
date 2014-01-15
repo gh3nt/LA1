@@ -31,7 +31,7 @@ public class FileManager {
 	 * Pobiera informajce o projektach norm z pliku
 	 * @return lista projektów norm
 	 */
-	public ArrayList<ProjektNormy> pobierzProjekty(String fileName){
+	public MyArrayList pobierzProjekty(String fileName){
 		
 		//wiersz, w którym zaczynaja siê informacje o projektach (1 w excelu = 0 w javie)
 		int wierszPocz = 7;
@@ -43,7 +43,7 @@ public class FileManager {
 		int nrArkusza = 0;
 		
 		//Lista projektów norm 
-		ArrayList<ProjektNormy> projekty = new ArrayList<ProjektNormy>() ;
+		MyArrayList projekty = new MyArrayList() ;
 		
 		//otwieranie skoroszytu excel
 		XSSFWorkbook workBook = null;
@@ -139,4 +139,35 @@ public class FileManager {
 		String data = cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1)  + "." + cal.get(Calendar.YEAR);
 		return data;
 	}
+
+	private void serializeObject(Object o, String file){
+		if (o instanceof Serializable){
+			try{
+				FileOutputStream fos = new FileOutputStream(file);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(o);
+				oos.close();
+				fos.close();
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	private Object deserializeObject(String file){
+		Object o = null;
+		try{
+			
+			FileInputStream fos = new FileInputStream(file);
+			ObjectInputStream oos = new ObjectInputStream(fos);
+			o= oos.readObject();
+			oos.close();
+			fos.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return o;
+	}
+
 }

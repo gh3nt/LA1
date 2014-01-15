@@ -86,13 +86,11 @@ public class MainFrame extends JFrame {
 	/**
 	 * Przekazuje do panelu 2 listê norm z pliku excela do tabeli, zmienia panel dolny na ten z tabel¹
 	 */
-	public void krok2(ArrayList<ProjektNormy> listaPN){
+	public void krok2(MyArrayList listaPN){
 		
 		panel2 = new Panel2(listaPN, this);
 		
-		
 		this.addComponentListener(new ComponentListener(){
-
 			
 			@Override
 			public void componentResized(ComponentEvent arg0) {
@@ -122,8 +120,6 @@ public class MainFrame extends JFrame {
 			
 		});
 
-		
-		
 		pokazPanel(panel2);
 		System.out.println("pokaz panel 2");
 	}
