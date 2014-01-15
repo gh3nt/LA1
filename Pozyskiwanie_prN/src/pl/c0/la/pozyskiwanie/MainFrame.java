@@ -2,6 +2,7 @@ package pl.c0.la.pozyskiwanie;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
@@ -25,6 +28,10 @@ public class MainFrame extends JFrame {
 	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
+	
+	//panel dolny wystêpuj¹cy jako drugi w kolejnoœci, z tabel¹, w której mo¿na wkazaæ
+	//normy do ankietyzacji wewnêtrznej
+	private Panel2 panel2;
 	
 	
 	/**
@@ -80,9 +87,45 @@ public class MainFrame extends JFrame {
 	 * Przekazuje do panelu 2 listê norm z pliku excela do tabeli, zmienia panel dolny na ten z tabel¹
 	 */
 	public void krok2(ArrayList<ProjektNormy> listaPN){
-		Panel2 panel2 = new Panel2(listaPN);
+		
+		panel2 = new Panel2(listaPN, this);
+		
+		
+		this.addComponentListener(new ComponentListener(){
+
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				System.out.println("resize w listenerze pocz¹tek");
+				panel2.resizeScrollPane();
+				System.out.println("resize w listenerze koniec");
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+
+		
 		
 		pokazPanel(panel2);
+		System.out.println("pokaz panel 2");
 	}
 	
 	/**
@@ -107,5 +150,5 @@ public class MainFrame extends JFrame {
 	public String getPlik(){
 		return plik;
 	}
-
+	
 }

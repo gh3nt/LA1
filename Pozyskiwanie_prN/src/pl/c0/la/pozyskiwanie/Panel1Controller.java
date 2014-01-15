@@ -22,6 +22,10 @@ public class Panel1Controller {
 		fm = new FileManager();
 	}
 	
+	/**
+	 * otwórz strone w domyœlnej przegl¹darce
+	 * @param url
+	 */
 	public void otworzStrone(String url){
 		wm.otworzStrone(url);
 	}
