@@ -241,6 +241,18 @@ public class ProjektNormy implements Serializable{
 		return numer + " " + nazwa + " (KT " + nrKT + ") :" + koniecAnkiety;    
 	}
 	
+	public void uzupelnijAkredytacjaZharmonizowane(String plikAkredytacja, String plikZharmonizowane){
+		
+	}
+	
+	public void uzupelnijAkredytacja(String plikAkredytacja){
+		
+	}
+	
+	public void uzupelnijZharmonizowane(String plikZharmonizowane){
+		
+	}
+	
 	
 
 	

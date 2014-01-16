@@ -3,10 +3,12 @@ package pl.c0.la.pozyskiwanie;
 import java.awt.Desktop;
 import java.io.*;
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -20,12 +22,6 @@ import org.apache.poi.xssf.usermodel.*;
  *
  */
 public class FileManager {
-	
-	//scie¿ka dostêpu do pliku z informacjami o projektach norm poddanych ankiecie powszechnej (*.xlsx) 
-	private String filePath = "";
-	
-	public FileManager(){
-	}
 	
 	/**
 	 * Pobiera informajce o projektach norm z pliku
@@ -168,4 +164,29 @@ public class FileManager {
 		return o;
 	}
 
+	/**
+	 * Pobiera zawartoœæ pliku w formie tekstu (nie zachowuje podzia³u na linie)
+	 * @param plik
+	 * @return
+	 */
+	public String pobierzTekstZPliku(String plik){
+		String s = "";
+		Scanner sc = null;
+
+
+		try{
+			StringBuilder sb = new StringBuilder();
+			sc = new Scanner(new File("c:\\temp\\dupa.txt"));
+			while(sc.hasNextLine()){
+				sb.append(sc.nextLine()+ " ");
+			}
+			
+			s = sb.toString();
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			sc.close();
+		}
+		return s;
+	}
 }

@@ -29,6 +29,12 @@ public class MainFrame extends JFrame {
 	//sciezka dostepu do pliku zserializowanej listy projektów norm wczeœniej przetwarzanych
 	private String plikPrzetwarzane = "c:\\temp\\przetwarzane.list";
 	
+	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
+		private String plikAkredytacja = "c:\\temp\\akredytacja.txt";
+		
+	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
+			private String plikZharmonizowane = "c:\\temp\\zharmonizowane.txt";
+	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
 	
@@ -59,6 +65,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 378);
+		this.setExtendedState(MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -91,24 +98,23 @@ public class MainFrame extends JFrame {
 	 */
 	public void krok2(MyArrayList listaPN){
 		
-		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie przetwarzanych
+		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie wczeœniej przetwarzanych
 		FileManager fm = new FileManager();		
 		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(plikPrzetwarzane);
 		listaPN.usunProjekty(przetwarzane);
 		System.out.println("usunieto przetwarzane");
 		System.out.println("size " + listaPN.size());
 		
+		
 		//utwórz panel 2
 		panel2 = new Panel2(listaPN, this);
 		
+		//dodaj listener, który bêdzie reagow¹³ na zmianê rozmiaru okna i odpowiednio dostosowywa³ panel 2
 		this.addComponentListener(new ComponentListener(){
 			
 			@Override
 			public void componentResized(ComponentEvent arg0) {
-				System.out.println("resize w listenerze pocz¹tek");
 				panel2.resizeScrollPane();
-				System.out.println("resize w listenerze koniec");
-				
 			}
 
 			@Override

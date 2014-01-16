@@ -18,9 +18,17 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test4();
+		test5();
 		
 
+	}
+	
+	private static void test5() {
+		
+		FileManager fm = new FileManager();
+		String s = fm.pobierzTekstZPliku("c:\\temp\\dupa.txt");
+		System.out.println(s);
+		
 	}
 	
 	private static	void test4(){
