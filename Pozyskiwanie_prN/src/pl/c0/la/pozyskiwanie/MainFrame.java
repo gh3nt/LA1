@@ -26,6 +26,9 @@ public class MainFrame extends JFrame {
 	//sciezka dostêpu do pliku Excela, gdzie bêd¹ wklejane informacje
 	private String plik = "c:\\temp\\test.xlsx";
 	
+	//sciezka dostepu do pliku zserializowanej listy projektów norm wczeœniej przetwarzanych
+	private String plikPrzetwarzane = "c:\\temp\\przetwarzane.list";
+	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
 	
@@ -88,6 +91,14 @@ public class MainFrame extends JFrame {
 	 */
 	public void krok2(MyArrayList listaPN){
 		
+		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie przetwarzanych
+		FileManager fm = new FileManager();		
+		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(plikPrzetwarzane);
+		listaPN.usunProjekty(przetwarzane);
+		System.out.println("usunieto przetwarzane");
+		System.out.println("size " + listaPN.size());
+		
+		//utwórz panel 2
 		panel2 = new Panel2(listaPN, this);
 		
 		this.addComponentListener(new ComponentListener(){

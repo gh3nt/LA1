@@ -29,6 +29,7 @@ public class Panel2 extends JPanel {
 		//umieœæ we wska¿niku this.parent odniesienie do nadrzêdnego panelu
 		this.parent = parent;
 
+
 		//utwórz model danych tabeli oparty na przekazanej liœcie projektów norm
 		TickTableModel ttm = new TickTableModel(listaPN);
 		

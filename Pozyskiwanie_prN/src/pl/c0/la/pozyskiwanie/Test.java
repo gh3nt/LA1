@@ -18,9 +18,56 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test2();
+		test4();
 		
 
+	}
+	
+	private static	void test4(){
+		//zapisz trochê projektów na liscie przetwarzanych
+		
+		//sciezka dostêpu do pliku Excela, gdzie bêd¹ wklejane informacje
+		String plik = "c:\\temp\\test.xlsx";
+		FileManager fm = new FileManager();
+		MyArrayList lista1 = fm.pobierzProjekty(plik);
+		
+		MyArrayList lista2 = new MyArrayList();
+		lista2.add(lista1.get(0));
+		lista2.add(lista1.get(1));
+		lista2.add(lista1.get(2));
+		
+		String plikPrzetwarzane = "c:\\temp\\przetwarzane.list";
+		fm.serializeObject(lista2, plikPrzetwarzane);
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	private static void test3(){
+		
+		String plikPrzetwarzane = "c:\\temp\\przetwarzane.list";
+		
+		FileManager fm = new FileManager();
+		
+		/*
+		//serializacja
+		MyArrayList list = new MyArrayList();
+		list.add(new ProjektNormy(5, "a","b", "c", "12.12.12"));
+		list.add(new ProjektNormy(10, "f","gg", "fbg", "12.12.12"));		
+		fm.serializeObject(list, plikPrzetwarzane);
+		System.out.println("serializacja wykonana");
+		*/
+		
+		//deserializacja
+		MyArrayList drugaLista = (MyArrayList) fm.deserializeObject(plikPrzetwarzane);
+		System.out.println("deserializacja wykonana");
+		System.out.println(drugaLista);
+		
 	}
 	
 	private static void test2(){
@@ -94,4 +141,6 @@ public class Test {
 				//==========
 	}
 
+
+	
 }

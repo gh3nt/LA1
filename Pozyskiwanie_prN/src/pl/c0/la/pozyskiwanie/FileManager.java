@@ -122,8 +122,6 @@ public class FileManager {
 
 		ProjektNormy pn =  new ProjektNormy(nrKT, nrProjektu, tytulPL, tytulEN, dataKoncaAnkiety );
 		
-		System.out.println(dataKoncaAnkiety);
-		
 		return pn;
 		
 	}
@@ -140,7 +138,7 @@ public class FileManager {
 		return data;
 	}
 
-	private void serializeObject(Object o, String file){
+	public void serializeObject(Object o, String file){
 		if (o instanceof Serializable){
 			try{
 				FileOutputStream fos = new FileOutputStream(file);
@@ -155,7 +153,7 @@ public class FileManager {
 		
 	}
 	
-	private Object deserializeObject(String file){
+	public Object deserializeObject(String file){
 		Object o = null;
 		try{
 			
