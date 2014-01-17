@@ -91,6 +91,9 @@ public class Panel2 extends JPanel {
 		table.setFont(new Font("Arial", Font.PLAIN, 12));
 		table.setForeground(Color.black);
 		
+		//zawijanie linii
+		table.getColumnModel().getColumn(1).setCellRenderer(new WrappingCellRenderer());
+		
 		
 	}
 	

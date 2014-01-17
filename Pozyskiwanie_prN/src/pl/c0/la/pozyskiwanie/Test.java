@@ -2,6 +2,8 @@ package pl.c0.la.pozyskiwanie;
 
 import java.io.IOException;
 
+import javax.swing.JTextArea;
+
 
 //test jsoup
 import org.jsoup.*;
@@ -18,9 +20,21 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test4();
+		test7();
 		
 
+	}
+	
+	private static void test7(){
+		JTextArea ta = new JTextArea();
+		ta.setLineWrap(true);
+		ta.setWrapStyleWord(true);
+		ta.setText("one two three four six seven eigh nine ten");
+		System.out.println("000" + ta.getPreferredSize());
+		System.out.println("000" + ta.getSize());
+		ta.setSize(100, 1);
+		System.out.println("100" + ta.getPreferredSize());
+		ta.setSize(ta.getPreferredSize());
 	}
 	
 	private static void test6(){
