@@ -176,7 +176,7 @@ public class FileManager {
 
 		try{
 			StringBuilder sb = new StringBuilder();
-			sc = new Scanner(new File("c:\\temp\\dupa.txt"));
+			sc = new Scanner(new File(plik));
 			while(sc.hasNextLine()){
 				sb.append(sc.nextLine()+ " ");
 			}

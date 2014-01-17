@@ -38,11 +38,8 @@ public class Panel1Controller {
 	 * Rozpocznij pobieranie danych z pliku. Wstaw dane do tablicy obiektów ProjektNormy i zmien panel w oknie g³ównym
 	 */
 	public void rozpocznij(String plik){
-		MyArrayList listaPN = fm.pobierzProjekty(plik);
 		
-		System.out.println("size: " + listaPN.size());
-		
-		parent.krok2(listaPN);
+		parent.krok2();
 		
 	}
 	

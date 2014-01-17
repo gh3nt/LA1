@@ -241,16 +241,36 @@ public class ProjektNormy implements Serializable{
 		return numer + " " + nazwa + " (KT " + nrKT + ") :" + koniecAnkiety;    
 	}
 	
-	public void uzupelnijAkredytacjaZharmonizowane(String plikAkredytacja, String plikZharmonizowane){
+	/**
+	 * na podstawie podanych stringów (zakres akredytacji, wykaz norm zharmonizowanych) ustawia odpowidnie flagi
+	 *   - czy projekt dotyczy normy zharmonizowanej 
+	 *   - czy projekt dotyczy normy z zakresu akredytacji ITB
+	 * @param tekstAkredytacja
+	 * @param tekstZharmonizowane
+	 */
+	public void uzupelnijAkredytacjaZharmonizowane(String tekstAkredytacja, String tekstZharmonizowane){
+		this.uzupelnijAkredytacja(tekstAkredytacja);
+		this.uzupelnijZharmonizowane(tekstZharmonizowane);
 		
+		//je¿eli przynajmniej jedna flaga (akredytacja lub zharmonizowany) jest ustawiona,
+		//domyœlnie zaznacz projekt jako zwi¹zany z zakresem dzia³alnoœci ITB i przeznaczony do ankiety wewnêtrznej/
+		if (this.getAkredytacja() || this.getZharmonizowana()) this.setZwiazany(true);
 	}
 	
-	public void uzupelnijAkredytacja(String plikAkredytacja){
-		
+	private void uzupelnijAkredytacja(String tekstAkredytacja){
+		String nr = this.getNumerKrotki();
+		if (tekstAkredytacja.contains(nr)){
+			this.setAkredytacja(true);
+		}
+
 	}
 	
-	public void uzupelnijZharmonizowane(String plikZharmonizowane){
-		
+	private void uzupelnijZharmonizowane(String tekstZharmonizowane){
+		String nr = this.getNumerKrotki();
+		if (tekstZharmonizowane.contains(nr)){
+			this.setZharmonizowana(true);
+		}
+
 	}
 	
 	

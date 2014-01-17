@@ -3,6 +3,11 @@ package pl.c0.la.pozyskiwanie;
 import java.util.ArrayList;
 import java.io.Serializable;
 
+/**
+ * W³asna klasa dziedzicz¹ca po ArrayList, stworzona na potrzeby przechowywania informacji o projektach norm
+ * @author Luk
+ *
+ */
 public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable {
 	
 	/**
@@ -29,7 +34,7 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 					}
 				}
 				
-				//je¿eli flaga "usunac" jest "true" usun element z listy i przestaw wskaŸnik i
+				//je¿eli flaga "usunac" jest "true" usun element z listy i przestaw wskaŸnik "i"
 				if (usunac) {
 					this.remove(i);
 					i--;
@@ -46,5 +51,25 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 	public void dodajListe(MyArrayList doDodania){
 		this.addAll(doDodania);
 	}
+	
+	/**
+	 * ustaw odpowiednie flagi (czy projekt normy w zakresie akredytacji, czy projekt dotyczy normy zharmonizowanej)
+	 * @param plikAkredytacja - œcie¿ka dostêpu do pliku tekstowego z zakresem akredytacji
+	 * @param plikZharmonizowane - œciezka dostêpu do pliku tekstowego z wykazem norm zharmonizowanych
+	 */
+	public void ustawAkredytacjaZharmonizowane(String plikAkredytacja, String plikZharmonizowane){
+		
+		// pobierz do Stringów: zakres akredytacji ITB, wykaz norm zharmonizowanych
+		FileManager fm = new FileManager();
+		String tekstAkredytacja = fm.pobierzTekstZPliku(plikAkredytacja);
+		String tekstZharmonizowane = fm.pobierzTekstZPliku(plikZharmonizowane);
+		
+		//ustaw odpowiednie flagi dla kazdego z projektów na liœcie (czy projekt normy w zakresie akredytacji, czy projekt dotyczy normy zharmonizowanej)
+		for(int i = 0; i < this.size(); i++){
+			this.get(i).uzupelnijAkredytacjaZharmonizowane(tekstAkredytacja, tekstZharmonizowane);
+		}		
+		
+	}
+	
 	
 }

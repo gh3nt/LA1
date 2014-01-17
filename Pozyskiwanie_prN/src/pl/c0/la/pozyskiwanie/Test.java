@@ -18,11 +18,24 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test5();
+		test4();
 		
 
 	}
 	
+	private static void test6(){
+		String s1 = "dupa aaaaaaaa";
+		String s2 = "du";
+		
+		boolean b = s1.contains(s2);
+		System.out.println(b);
+		
+		FileManager fm = new FileManager();
+		String s3 = fm.pobierzTekstZPliku("c:\\temp\\akredytacja.txt");
+		System.out.println(s3);
+	}
+	
+	//pobieranie tekstu z pliku
 	private static void test5() {
 		
 		FileManager fm = new FileManager();
@@ -31,6 +44,7 @@ public class Test {
 		
 	}
 	
+	//zapisz kilka projektow na liœcie przetwarzanych
 	private static	void test4(){
 		//zapisz trochê projektów na liscie przetwarzanych
 		

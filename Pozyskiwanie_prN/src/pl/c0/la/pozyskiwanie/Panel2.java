@@ -48,7 +48,6 @@ public class Panel2 extends JPanel {
 	}
 	
 	public void resizeScrollPane(){
-		System.out.println("resize w panelu, width: " + parent.getWidth() );
 		sp.setBounds(5, 10, parent.getWidth() - 35, parent.getHeight() - 100);
 		sp.repaint();
 		table.updateUI();

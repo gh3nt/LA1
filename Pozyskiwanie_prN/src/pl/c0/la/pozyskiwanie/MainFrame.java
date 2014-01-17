@@ -30,10 +30,10 @@ public class MainFrame extends JFrame {
 	private String plikPrzetwarzane = "c:\\temp\\przetwarzane.list";
 	
 	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
-		private String plikAkredytacja = "c:\\temp\\akredytacja.txt";
+	private String plikAkredytacja = "c:\\temp\\akredytacja.txt";
 		
 	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
-			private String plikZharmonizowane = "c:\\temp\\zharmonizowane.txt";
+	private String plikZharmonizowane = "c:\\temp\\zharmonizowane.txt";
 	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
@@ -96,14 +96,16 @@ public class MainFrame extends JFrame {
 	/**
 	 * Przekazuje do panelu 2 listê norm z pliku excela do tabeli, zmienia panel dolny na ten z tabel¹
 	 */
-	public void krok2(MyArrayList listaPN){
+	public void krok2(){
 		
 		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie wczeœniej przetwarzanych
-		FileManager fm = new FileManager();		
+		FileManager fm = new FileManager();	
+		MyArrayList listaPN = fm.pobierzProjekty(plik);
 		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(plikPrzetwarzane);
 		listaPN.usunProjekty(przetwarzane);
-		System.out.println("usunieto przetwarzane");
-		System.out.println("size " + listaPN.size());
+		
+		//zaznacz normy w zakresie akredytacji i zharmonizowane
+		listaPN.ustawAkredytacjaZharmonizowane(plikAkredytacja, plikZharmonizowane);
 		
 		
 		//utwórz panel 2
@@ -138,7 +140,6 @@ public class MainFrame extends JFrame {
 		});
 
 		pokazPanel(panel2);
-		System.out.println("pokaz panel 2");
 	}
 	
 	/**
@@ -159,7 +160,6 @@ public class MainFrame extends JFrame {
 	/**
 	 * zwraca œcie¿kê dostêpu do pliku Excela, do którego maj¹ byæ wklejone dan odczytywane póŸniej przez sytem
 	 */
-	
 	public String getPlik(){
 		return plik;
 	}
