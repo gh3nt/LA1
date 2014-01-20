@@ -20,11 +20,22 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test7();
+		test8();
 		
 
 	}
 	
+	
+	
+	private static void test8() {
+		FileManager fm = new FileManager();
+		String s = fm.pobierzDate();
+		System.out.println(s);
+		
+	}
+
+
+
 	private static void test7(){
 		JTextArea ta = new JTextArea();
 		ta.setLineWrap(true);

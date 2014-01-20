@@ -3,8 +3,11 @@ package pl.c0.la.pozyskiwanie;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,11 +23,24 @@ public class Panel2 extends JPanel {
 	//panel przewijany, w którym umieszczona bêdzie tabela
 	private JScrollPane sp;
 	
+	//przycisk "Eksportuj"
+	private JButton eksportuj;
+	
+	//lista projektów norm
+	private MyArrayList listaPN;
+	
+	//klasa zarz¹dzaj¹ca plikami
+	FileManager fm;
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public Panel2(MyArrayList listaPN, MainFrame parent) {
+		
+		this.listaPN = listaPN;
+		fm = new FileManager();
+		
 		
 		//usuñ managera uk³adu
 		setLayout(null);
@@ -32,15 +48,11 @@ public class Panel2 extends JPanel {
 		//umieœæ we wska¿niku this.parent odniesienie do nadrzêdnego panelu
 		this.parent = parent;
 
-
 		//utwórz model danych tabeli oparty na przekazanej liœcie projektów norm
 		TickTableModel ttm = new TickTableModel(listaPN);
 		
 		//utwórz tabelê
 		table = new JTable(ttm);
-		
-		//ustawioanie szerokoœci kolumn
-		
 		
 		//utwórz panel przewijany
 		sp = new JScrollPane(table);
@@ -48,17 +60,42 @@ public class Panel2 extends JPanel {
 		//sp.setSize(sp.getHeight(), parent.getWidth() - 10);
 		resizeScrollPane();
 		
-		//dodaje tabelê do panelu
+		//dodaje panel przewijany z tabel¹ do panelu
 		add(sp);
-
+		
+		//dodaj przycisk "Eksportuj"
+		eksportuj = stworzEksportuj();
+		add(eksportuj);
 	}
 	
+	private JButton stworzEksportuj() {
+		JButton b = new JButton("Eksportuj");
+		b.setFont(new Font("Tahoma", Font.BOLD, 11));
+		//b.setBounds(5, sp.getHeight() + 10, 100, 25);
+		ustawPrzyciskEksportuj(b);
+		b.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				fm.eksportujDoExcela(listaPN, parent.getKatalogEksport());
+			}
+		});
+		return b;
+		
+		
+	}
+	
+	private void ustawPrzyciskEksportuj(JButton b){
+		if (b!=null){
+			b.setBounds(5, sp.getHeight() + 10, 100, 25);
+		}
+	}
+
 	public void resizeScrollPane(){
-		sp.setBounds(5, 10, parent.getWidth() - 35, parent.getHeight() - 100);
+		sp.setBounds(5, 5, parent.getWidth() - 35, parent.getHeight() - 130);
 		sp.repaint();
 		table.updateUI();
 		ustawSzerokoscKolumn(table);
 		
+		ustawPrzyciskEksportuj(eksportuj);
 	}
 	
 	//ustawia szerokoœæ wszystkich kolumn w tabeli

@@ -35,6 +35,10 @@ public class MainFrame extends JFrame {
 	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
 	private String plikZharmonizowane = "c:\\temp\\zharmonizowane.txt";
 	
+	//sciezka dostêpu do katalogu na wyeksportowane arkusze excela do ankietyzacji 
+	private String katalogEksport = "c:\\temp\\eksport\\";
+	
+	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
 	
@@ -162,6 +166,10 @@ public class MainFrame extends JFrame {
 	 */
 	public String getPlik(){
 		return plik;
+	}
+	
+	public String getKatalogEksport(){
+		return katalogEksport;
 	}
 	
 }

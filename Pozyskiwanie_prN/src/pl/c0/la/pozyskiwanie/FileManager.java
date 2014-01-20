@@ -1,9 +1,12 @@
 package pl.c0.la.pozyskiwanie;
 
 import java.awt.Desktop;
+import java.awt.Font;
 import java.io.*;
 import java.net.URI;
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +15,12 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.poifs.filesystem.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.*;
 
 /**
@@ -189,4 +197,125 @@ public class FileManager {
 		}
 		return s;
 	}
+
+	/**
+	 * tworzy i otwiera plik Excela z list¹ projektów do ankietyzacji;
+	 */
+	public void eksportujDoExcela(MyArrayList listaPN, String katalog){
+		sprawdzKatalog(katalog);
+		
+		//pobierz datê do nazwy pliku
+		String data = pobierzDate();
+
+		//utwórz nowy skoroszyt z arkuszem
+		XSSFWorkbook wb = new XSSFWorkbook();
+		Sheet sheet1 = przygotujArkusz(wb, data);
+		
+		/*
+		Row row = sheet1.createRow(0);
+		Cell cell1 = row.createCell(0);
+		cell1.setCellValue("test1");
+		Cell cell2 = row.createCell(1);
+		cell2.setCellValue("test2");
+		*/
+		
+		
+		//zapisz plik
+		String fName = katalog +"ankietyzacja" + data + ".xlsx";
+		FileOutputStream fileOut = null;
+		try{
+			fileOut = new FileOutputStream(fName);
+			wb.write(fileOut);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		//otwórz plik w excelu
+		this.otworzPlik(fName);
+		
+	}
+	
+	private Sheet przygotujArkusz(XSSFWorkbook wb, String data){
+		
+		//informacje o kolumnach
+		Kolumna[] col = {
+				new Kolumna("nr KT",5),
+				new Kolumna("nazwa KT", 22),
+				new Kolumna("nr projektu", 20),
+				new Kolumna("nazwa projektu", 45),
+				new Kolumna("koniec ankiety", 12),
+				new Kolumna("Akredytacja", 9),
+				new Kolumna("Harmonizacja", 9),
+				new Kolumna("Zak³ady ITB", 8) 
+		};
+		
+		Sheet s = wb.createSheet(data);
+		Row row = s.createRow(0);
+		
+		//ustaw szerkosci kolumn
+		for(int i = 0; i < col.length; i++){
+			//s.setColumnWidth(i, col[i].szerokosc);
+			s.setColumnWidth(i, col[i].szerokosc * 256);
+		}
+		
+		
+		//utwórz styl dla nag³ówków
+		XSSFFont font = wb.createFont();
+		font.setFontHeightInPoints((short)8);
+		font.setFontName("Arial");
+		font.setBold(true);
+		CellStyle style = wb.createCellStyle();
+		style.setFont(font);
+		style.setWrapText(true);
+		style.setAlignment(CellStyle.ALIGN_CENTER);
+		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		short border = CellStyle.BORDER_MEDIUM;
+		style.setBorderBottom(border);
+		style.setBorderLeft(border);
+		style.setBorderRight(border);
+		style.setBorderTop(border);
+		
+		//wypisz nag³ówki
+		for(int i = 0; i < col.length; i++){
+			Cell c = row.createCell(i);
+			c.setCellStyle(style);
+			c.setCellValue(col[i].nazwa);	
+		}
+		
+		return s;
+	}
+
+	
+	/**
+	 * zwraca aktualn¹ date w formacie dd_mm_yyyy_HHmmss
+	 * @return
+	 */
+	public String pobierzDate() {
+		DateFormat f = new SimpleDateFormat("dd_mm_yyyy_HHmmss");
+		Calendar cal = Calendar.getInstance();
+		return f.format(cal.getTime());
+	}
+
+	/**
+	 * sprawdza czy katalo istnieje, je¿eli nie - tworzy go
+	 * @param katalog
+	 */
+	private void sprawdzKatalog(String katalog) {
+		File path = new File(katalog);
+		if (! (path.exists() && path.isDirectory() )){
+			path.mkdirs();
+		}
+		
+	}
+	
+	class Kolumna{
+		String nazwa;
+		int szerokosc;
+		
+		public Kolumna(String nazwa, int szerokosc){
+			this.nazwa = nazwa;
+			this.szerokosc = szerokosc;
+		}
+	}
+	
 }
