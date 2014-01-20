@@ -35,4 +35,8 @@ public class WebManager {
 		}
 	}
 	
+	public Document pobierzTekstZeStrony(String adres){
+		
+	}
+	
 }

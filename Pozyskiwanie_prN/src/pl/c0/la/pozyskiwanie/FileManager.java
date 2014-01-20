@@ -193,7 +193,7 @@ public class FileManager {
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally{
-			sc.close();
+			if (sc!=null)sc.close();
 		}
 		return s;
 	}
@@ -211,13 +211,7 @@ public class FileManager {
 		XSSFWorkbook wb = new XSSFWorkbook();
 		Sheet sheet1 = przygotujArkusz(wb, data);
 		
-		/*
-		Row row = sheet1.createRow(0);
-		Cell cell1 = row.createCell(0);
-		cell1.setCellValue("test1");
-		Cell cell2 = row.createCell(1);
-		cell2.setCellValue("test2");
-		*/
+		wypiszDaneZListy(listaPN, sheet1, wb);
 		
 		
 		//zapisz plik
@@ -235,6 +229,58 @@ public class FileManager {
 		
 	}
 	
+	/**
+	 * wypisuje dane z podanej listy w podanym arkuszu
+	 * @param listaPN
+	 * @param sheet1
+	 */
+	private void wypiszDaneZListy(MyArrayList listaPN, Sheet s, XSSFWorkbook wb) {
+		//zdefiniuj styl komórek
+		XSSFFont font = wb.createFont();
+		font.setFontHeightInPoints((short)8);
+		font.setFontName("Arial");
+		font.setBold(false);
+		CellStyle style = wb.createCellStyle();
+		style.setFont(font);
+		style.setWrapText(true);
+		style.setAlignment(CellStyle.ALIGN_LEFT);
+		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		short border = CellStyle.BORDER_THIN;
+		style.setBorderBottom(border);
+		style.setBorderLeft(border);
+		style.setBorderRight(border);
+		style.setBorderTop(border);
+		
+		// TODO Auto-generated method stub
+		//dodaj pozycje z listy
+		int rowNum = 1;
+		for (int i = 0; i < listaPN.size(); i++){
+			
+			if(listaPN.get(i).getZwiazany()){
+				Row r = s.createRow(rowNum);
+				r.createCell(0).setCellValue(listaPN.get(i).getNrKT());
+				r.createCell(1).setCellValue(listaPN.get(i).getNazwaKT());
+				r.createCell(2).setCellValue(listaPN.get(i).getNumer());
+				r.createCell(3).setCellValue(listaPN.get(i).getNazwa());
+				r.createCell(4).setCellValue(listaPN.get(i).getKoniecAnkiety());
+				r.createCell(5).setCellValue(listaPN.get(i).getAkredytacja());
+				r.createCell(6).setCellValue(listaPN.get(i).getZharmonizowana());
+				r.createCell(7).setCellValue("");
+				
+				//ustaw styl dla ka¿dej z komórek
+				for (int j = 0; j < 8; j++){
+					r.getCell(j).setCellStyle(style);
+				}
+				
+				//if (r.getHeight() < 500) r.setHeight((short) 500);
+				
+				rowNum++;
+			}
+
+		}
+		
+	}
+
 	private Sheet przygotujArkusz(XSSFWorkbook wb, String data){
 		
 		//informacje o kolumnach
