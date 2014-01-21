@@ -1,6 +1,8 @@
 package pl.c0.la.pozyskiwanie;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JTextArea;
 
@@ -20,11 +22,32 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test9();
+		test10();
 		
 
 	}
 	
+	private static void test10(){
+		File f = null;
+		try {
+			f = new File(Test.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		/*
+		String path = Test.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		String decodedPath = "";
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		System.out.println(f.getAbsolutePath());
+	}
 	
 	private static void test9(){
 		String adres = "https://pzn.pkn.pl/kt/?pid=kt";
@@ -63,7 +86,7 @@ public class Test {
 		System.out.println(b);
 		
 		FileManager fm = new FileManager();
-		String s3 = fm.pobierzTekstZPliku("c:\\temp\\akredytacja.txt");
+		String s3 = fm.pobierzTekstZPliku("\\temp\\akredytacja.txt");
 		System.out.println(s3);
 	}
 	

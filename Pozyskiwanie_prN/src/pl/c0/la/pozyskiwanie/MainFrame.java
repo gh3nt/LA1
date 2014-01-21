@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
@@ -14,29 +15,36 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	
+	//WSZYSTKIE ADRESY PLIKÓW SA ZMIENIANE W Konstruktorze - dodawana jest œcie¿ka bezwzglêdna
 	//adres strony ankiety powszechnej
 	private String urlAnkiety = "https://pzn.pkn.pl/pzn-share/page/pzn/polling";
 	
 	//sciezka dostêpu do pliku Excela, gdzie bêd¹ wklejane informacje
-	private String plik = "c:\\temp\\test.xlsx";
+	private String plik = "\\resources\\test.xlsx";
 	
 	//sciezka dostepu do pliku zserializowanej listy projektów norm wczeœniej przetwarzanych
-	private String plikPrzetwarzane = "c:\\temp\\przetwarzane.list";
+	private String plikPrzetwarzane = "\\resources\\przetwarzane.list";
 	
 	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
-	private String plikAkredytacja = "c:\\temp\\akredytacja.txt";
+	private String plikAkredytacja = "\\resources\\akredytacja.txt";
 		
 	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
-	private String plikZharmonizowane = "c:\\temp\\zharmonizowane.txt";
+	private String plikZharmonizowane = "\\resources\\zharmonizowane.txt";
 	
 	//sciezka dostêpu do katalogu na wyeksportowane arkusze excela do ankietyzacji 
-	private String katalogEksport = "c:\\temp\\eksport\\";
+	private String katalogEksport = "\\resources\\eksport\\";
 	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
@@ -68,6 +76,10 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		//ustaw sciezke dostêpu do plików
+		JOptionPane.showMessageDialog(this, "a3");
+		ustawPliki();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 378);
 		this.setExtendedState(MAXIMIZED_BOTH);
@@ -98,6 +110,16 @@ public class MainFrame extends JFrame {
 		splitPane.setRightComponent(new Panel1(this));
 	}
 	
+
+
+	private void ustawPliki() {
+		plik = getDecodedPath() + plik;// TODO Auto-generated method stub
+		plikPrzetwarzane = getDecodedPath() + plikPrzetwarzane;
+		plikAkredytacja = getDecodedPath() + plikAkredytacja;
+		plikZharmonizowane = getDecodedPath() + plikZharmonizowane;
+		katalogEksport = getDecodedPath() + katalogEksport;
+	}
+
 	/**
 	 * Przekazuje do panelu 2 listê norm z pliku excela do tabeli, zmienia panel dolny na ten z tabel¹
 	 */
@@ -105,8 +127,8 @@ public class MainFrame extends JFrame {
 		
 		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie wczeœniej przetwarzanych
 		FileManager fm = new FileManager();	
-		MyArrayList listaPN_surowa = fm.pobierzProjekty(plik); //lista, z której zostan¹ okreœlone przetwarzane projekty
-		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(plikPrzetwarzane);
+		MyArrayList listaPN_surowa = fm.pobierzProjekty(this.getPlik()); //lista, z której zostan¹ okreœlone przetwarzane projekty
+		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(getPlikPrzetwarzane());
 		MyArrayList listaPN = listaPN_surowa;
 		listaPN.usunProjekty(przetwarzane);
 		
@@ -173,11 +195,11 @@ public class MainFrame extends JFrame {
 	 * zwraca œcie¿kê dostêpu do pliku Excela, do którego maj¹ byæ wklejone dan odczytywane póŸniej przez sytem
 	 */
 	public String getPlik(){
-		return plik;
+		return this.plik;
 	}
 	
 	public String getKatalogEksport(){
-		return katalogEksport;
+		return this.katalogEksport;
 	}
 	
 	public String getPlikPrzetwarzane(){
@@ -190,6 +212,51 @@ public class MainFrame extends JFrame {
 	
 	public String getPlikZharmonizowane(){
 		return this.plikZharmonizowane;
+	}
+	
+	public String getDecodedPath(){
+		
+		
+		File f = null;
+		
+		try {
+			
+			String path = MainFrame.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			f =  new File(path);
+			JOptionPane.showMessageDialog(this, f.getCanonicalPath());
+			JOptionPane.showMessageDialog(this, f.getPath());
+			JOptionPane.showMessageDialog(this, f.getAbsolutePath());
+			//f = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(this, e1.getStackTrace());
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			f=new File("c:\\");
+		}
+
+		String s = "";
+		try {
+			s = f.getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return s;
+		
+		
+		/*
+		String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+		String decodedPath = "";
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(this, decodedPath);
+		return decodedPath;
+		*/
 	}
 	
 }
