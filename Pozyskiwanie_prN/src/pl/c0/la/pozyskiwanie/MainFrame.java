@@ -38,13 +38,14 @@ public class MainFrame extends JFrame {
 	//sciezka dostêpu do katalogu na wyeksportowane arkusze excela do ankietyzacji 
 	private String katalogEksport = "c:\\temp\\eksport\\";
 	
-	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
 	
 	//panel dolny wystêpuj¹cy jako drugi w kolejnoœci, z tabel¹, w której mo¿na wkazaæ
 	//normy do ankietyzacji wewnêtrznej
 	private Panel2 panel2;
+	
+	
 	
 	
 	/**
@@ -104,8 +105,9 @@ public class MainFrame extends JFrame {
 		
 		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie wczeœniej przetwarzanych
 		FileManager fm = new FileManager();	
-		MyArrayList listaPN = fm.pobierzProjekty(plik);
+		MyArrayList listaPN_surowa = fm.pobierzProjekty(plik); //lista, z której zostan¹ okreœlone przetwarzane projekty
 		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(plikPrzetwarzane);
+		MyArrayList listaPN = listaPN_surowa;
 		listaPN.usunProjekty(przetwarzane);
 		
 		//zaznacz normy w zakresie akredytacji i zharmonizowane
@@ -119,7 +121,7 @@ public class MainFrame extends JFrame {
 		
 		
 		//utwórz panel 2
-		panel2 = new Panel2(listaPN, this);
+		panel2 = new Panel2(listaPN, this, listaPN_surowa);
 		
 		//dodaj listener, który bêdzie reagow¹³ na zmianê rozmiaru okna i odpowiednio dostosowywa³ panel 2
 		this.addComponentListener(new ComponentListener(){
@@ -176,6 +178,18 @@ public class MainFrame extends JFrame {
 	
 	public String getKatalogEksport(){
 		return katalogEksport;
+	}
+	
+	public String getPlikPrzetwarzane(){
+		return this.plikPrzetwarzane;
+	}
+	
+	public String getPlikAkredytacja(){
+		return this.plikAkredytacja;
+	}
+	
+	public String getPlikZharmonizowane(){
+		return this.plikZharmonizowane;
 	}
 	
 }

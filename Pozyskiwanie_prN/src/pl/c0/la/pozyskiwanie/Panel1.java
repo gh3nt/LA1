@@ -19,7 +19,7 @@ public class Panel1 extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Panel1(MainFrame parent) {
+	public Panel1(final MainFrame parent) {
 		
 		this.parent = parent;
 		controller = new Panel1Controller(parent);
@@ -54,7 +54,7 @@ public class Panel1 extends JPanel {
 				uzupelnijPole1();
 			}
 		});
-		btnNewButton.setBounds(361, 77, 140, 23);
+		btnNewButton.setBounds(263, 100, 140, 23);
 		add(btnNewButton);
 		
 		JLabel lblNazwaPlikuExcela = new JLabel("Nazwa pliku Excela z informacjami o projektach:");
@@ -85,7 +85,7 @@ public class Panel1 extends JPanel {
 			}
 		});
 		btnPrzywrDomylny.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnPrzywrDomylny.setBounds(361, 160, 140, 23);
+		btnPrzywrDomylny.setBounds(263, 183, 140, 23);
 		add(btnPrzywrDomylny);
 		
 		JButton btnRozpocznij = new JButton("Rozpocznij");
@@ -97,8 +97,38 @@ public class Panel1 extends JPanel {
 		btnRozpocznij.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnRozpocznij.setForeground(Color.RED);
 		btnRozpocznij.setBackground(UIManager.getColor("Button.background"));
-		btnRozpocznij.setBounds(263, 231, 103, 35);
+		btnRozpocznij.setBounds(23, 244, 103, 35);
 		add(btnRozpocznij);
+		
+		JButton otworzAkredytacja = new JButton("zakres akredytacji");
+		otworzAkredytacja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.otworzPlik(parent.getPlikAkredytacja());
+			}
+		});
+		otworzAkredytacja.setBounds(495, 11, 157, 23);
+		otworzAkredytacja.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		add(otworzAkredytacja);
+		
+		JButton normyZharmonizowane = new JButton("normy zharmonizowane");
+		normyZharmonizowane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.otworzPlik(parent.getPlikZharmonizowane());
+			}
+		});
+		normyZharmonizowane.setBounds(495, 45, 157, 23);
+		normyZharmonizowane.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		add(normyZharmonizowane);
+		
+		JButton wyczyscPrzetwarzane = new JButton("wyczy\u015B\u0107 przetwarzane");
+		wyczyscPrzetwarzane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.usunPlik(parent.getPlikPrzetwarzane());
+			}
+		});
+		wyczyscPrzetwarzane.setBounds(495, 77, 157, 23);
+		wyczyscPrzetwarzane.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		add(wyczyscPrzetwarzane);
 		
 		uzupelnijPole1();
 		uzupelnijPole2();
@@ -116,7 +146,4 @@ public class Panel1 extends JPanel {
 			//sciezka i nazwa pliku Excela
 			textField_1.setText(parent.getPlik());
 		}
-	
-
-	
 }

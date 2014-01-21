@@ -32,14 +32,17 @@ public class Panel2 extends JPanel {
 	//klasa zarz¹dzaj¹ca plikami
 	FileManager fm;
 	
+	//lista wszystkich pobranych projektów (na potrzebu listy przetwaranych
+	MyArrayList listaPrzetwarzanych;
 
 	/**
 	 * Create the panel.
 	 */
-	public Panel2(MyArrayList listaPN, MainFrame parent) {
+	public Panel2(MyArrayList listaPN, MainFrame parent, MyArrayList listaPrzetwarzanych) {
 		
 		this.listaPN = listaPN;
 		fm = new FileManager();
+		this.listaPrzetwarzanych = listaPrzetwarzanych;
 		
 		
 		//usuñ managera uk³adu
@@ -76,6 +79,7 @@ public class Panel2 extends JPanel {
 		b.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				fm.eksportujDoExcela(listaPN, parent.getKatalogEksport());
+				fm.zapiszListePrzetwarzanych(listaPrzetwarzanych, parent.getPlikPrzetwarzane());
 			}
 		});
 		return b;

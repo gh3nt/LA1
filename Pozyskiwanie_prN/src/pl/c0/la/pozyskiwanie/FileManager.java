@@ -363,5 +363,20 @@ public class FileManager {
 			this.szerokosc = szerokosc;
 		}
 	}
+
+	public void zapiszListePrzetwarzanych(MyArrayList listaPrzetwarzanych,
+			String plikPrzetwarzane) {
+		this.serializeObject(listaPrzetwarzanych, plikPrzetwarzane);
+		
+	}
+	
+	public void usunPlik(String nazwa){
+		File f = new File(nazwa);
+		try{
+			f.delete();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 }

@@ -43,5 +43,13 @@ public class Panel1Controller {
 		
 	}
 	
+	public void otworzPlik(String nazwaPliku){
+		fm.otworzPlik(nazwaPliku);
+	}
+	
+	public void usunPlik(String nazwa){
+		fm.usunPlik(nazwa);
+	}
+	
 
 }
