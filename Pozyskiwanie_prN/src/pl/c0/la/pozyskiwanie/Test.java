@@ -20,12 +20,19 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test8();
+		test9();
 		
 
 	}
 	
 	
+	private static void test9(){
+		String adres = "https://pzn.pkn.pl/kt/?pid=kt";
+		WebManager wm = new WebManager();
+		
+		String s = wm.pobierzTekstZeStrony(adres);
+		System.out.println(s);
+	}
 	
 	private static void test8() {
 		FileManager fm = new FileManager();

@@ -1,6 +1,8 @@
 package pl.c0.la.pozyskiwanie;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.io.Serializable;
 
 /**
@@ -71,5 +73,98 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 		
 	}
 	
+	public void pobierzNazwyKT(){
+		
+		//pobierz wykaz KT (string ze wszystkimi nazwami)
+		WebManager wm = new WebManager();
+		String s = wm.pobierzWykazKT();
+						
+		for(int i = 0; i < this.size(); i++){
+			ProjektNormy pn = this.get(i);
+			Integer nrKT = pn.getNrKT();
+			String nazwaKT = "";
+			
+			//rozmiar stringa z numerem KT
+			String sNr = nrKT.toString();
+			int rozmiar = sNr.length();
+			
+			//miejsce wyst¹pienia numeru KT
+			int a = 0;
+			
+			//miejsca pocz¹tku wyszukiwania
+			int b = 0;
+			
+			//czy wystêpuje przynajmniej 1
+			boolean jest = false;
+			
+			//czy znaleziony
+			boolean znal = false;
+			
+			
+			if ((s != null) && (s.contains(sNr))){
+				//znajdŸ nrKT w stringu
+				do{
+					znal = false;
+
+					a =  s.indexOf(" " + nrKT + " ", b) + 1;
+					
+					//je¿eli po numerze i spacji wystêuje cyfra to szukaj dalej
+					char c = s.charAt(a + rozmiar + 1);
+					
+					if (Character.isDigit(c)){
+						//przesuñ pocz¹tek wyszukiwania
+						b = a + 1;
+						znal = false;
+					} else{
+						znal = true;
+					}					
+					
+				}while (!znal);
+				
+				// znalezione jest a - pocz¹tek numeru KT, znajdŸ pocz¹tek nazwy
+				int poczNaz = a + rozmiar + 1;
+				
+				//znajdŸ koniec nazwy = (index pierwszego miejsca, które jest cyfr¹) - 1
+				int konNaz = poczNaz;
+				for (int j  = poczNaz; j < s.length(); j++){
+					char c = s.charAt(j);
+					if (Character.isDigit(c)){
+						konNaz = j;
+						break;
+					}
+				}
+				
+				nazwaKT = "ds. " + s.substring(poczNaz, konNaz);
+				
+			} else{
+				nazwaKT = "n/a";
+			}
+			
+			pn.setNazwaKT(nazwaKT);
+			System.out.println(pn.getNrKT());
+			
+		}
+		
+	}
 	
+	/**
+	 * sortuje projekty wg numerów KT, potem wg. nazw projektów
+	 */
+	public void sortuj(){
+		Collections.sort(this, new Comparator<ProjektNormy>(){
+			public int compare(ProjektNormy a, ProjektNormy b){
+				int result = 0;
+				//porównaj proijekty norm
+				if (a.getNrKT() == b.getNrKT()){
+					//jeœli numery KT s¹ równe, porównaj nazwy proejktów
+					result = a.getNazwa().compareTo(b.getNazwa());
+				}else{
+					result = Integer.compare(a.getNrKT(), b.getNrKT());
+				}
+				
+				return result;
+			}
+		});
+	}
+		
 }

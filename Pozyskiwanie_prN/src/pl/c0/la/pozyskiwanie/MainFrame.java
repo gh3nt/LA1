@@ -111,6 +111,12 @@ public class MainFrame extends JFrame {
 		//zaznacz normy w zakresie akredytacji i zharmonizowane
 		listaPN.ustawAkredytacjaZharmonizowane(plikAkredytacja, plikZharmonizowane);
 		
+		//wype³nij informacje o nazwach KT
+		listaPN.pobierzNazwyKT();
+		
+		//sortuj projekty
+		listaPN.sortuj();
+		
 		
 		//utwórz panel 2
 		panel2 = new Panel2(listaPN, this);

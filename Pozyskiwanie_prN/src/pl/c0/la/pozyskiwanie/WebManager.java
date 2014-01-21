@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import org.apache.poi.poifs.filesystem.*;
 import org.apache.poi.xssf.usermodel.*;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.awt.Desktop;
 import java.net.URI;
 import javax.swing.*;
@@ -35,8 +39,42 @@ public class WebManager {
 		}
 	}
 	
-	public Document pobierzTekstZeStrony(String adres){
+	/**
+	 * pobiera tekst ze strony o pdanym adresie
+	 * @param adres
+	 * @return
+	 */
+	public String pobierzTekstZeStrony(String adres){
 		
+		Document doc = null;
+		String s = null;
+		
+		try{
+			Connection con = Jsoup.connect(adres);
+			con.timeout(3000);
+			doc = Jsoup.connect(adres).get();
+			s = doc.text();
+		} catch(Exception e){
+			e.printStackTrace();
+			s = null;
+		}
+		
+		return s;
 	}
+	
+	
+	/**
+	 * Pobiera nazwe KT na podstawie jego numeru
+	 * @param nrKT
+	 * @return
+	 */
+	public String pobierzWykazKT(){
+		
+		String adres = "https://pzn.pkn.pl/kt/?pid=kt";
+		String s = pobierzTekstZeStrony(adres);
+		return s;
+	}
+		
+	
 	
 }

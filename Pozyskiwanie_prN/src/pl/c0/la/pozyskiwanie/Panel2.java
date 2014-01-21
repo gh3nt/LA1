@@ -113,10 +113,10 @@ public class Panel2 extends JPanel {
 		ustawSzerokoscKolumny(table, 7, tableSize, 0.06f);
 		*/
 		
-		table.getColumn(table.getColumnName(0)).setPreferredWidth(Math.round((tableSize.width) * 0.1f));
-		table.getColumn(table.getColumnName(1)).setPreferredWidth(Math.round((tableSize.width) * 0.40f));
-		table.getColumn(table.getColumnName(2)).setPreferredWidth(Math.round((tableSize.width) * 0.04f));
-		table.getColumn(table.getColumnName(3)).setPreferredWidth(Math.round((tableSize.width) * 0.2f));
+		table.getColumn(table.getColumnName(0)).setPreferredWidth(Math.round((tableSize.width) * 0.04f ));
+		table.getColumn(table.getColumnName(1)).setPreferredWidth(Math.round((tableSize.width) * 0.2f ));
+		table.getColumn(table.getColumnName(2)).setPreferredWidth(Math.round((tableSize.width) * 0.1f));
+		table.getColumn(table.getColumnName(3)).setPreferredWidth(Math.round((tableSize.width) * 0.4f));
 		table.getColumn(table.getColumnName(4)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
 		table.getColumn(table.getColumnName(5)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
 		table.getColumn(table.getColumnName(6)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
@@ -129,7 +129,7 @@ public class Panel2 extends JPanel {
 		table.setForeground(Color.black);
 		
 		//zawijanie linii
-		table.getColumnModel().getColumn(1).setCellRenderer(new WrappingCellRenderer());
+		table.getColumnModel().getColumn(3).setCellRenderer(new WrappingCellRenderer());
 		
 		
 	}

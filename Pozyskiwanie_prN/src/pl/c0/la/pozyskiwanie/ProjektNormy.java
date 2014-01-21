@@ -190,6 +190,13 @@ public class ProjektNormy implements Serializable{
 	}
 	
 	/**
+	 * zwraca nazwê KT
+	 */
+	public void setNazwaKT(String nazwaKT){
+		this.nazwaKT = nazwaKT;
+	}
+	
+	/**
 	 * Z pe³nego numeru projektu normy (typu prPN-prEN 12345-3:2011/prA1 wybiera tylko numer normy, bez daty czyli np. 12345-3
 	 * @param numer
 	 * @return

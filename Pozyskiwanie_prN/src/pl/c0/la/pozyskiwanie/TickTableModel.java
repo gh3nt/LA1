@@ -38,23 +38,23 @@ public class TickTableModel extends AbstractTableModel {
 		
 		// pobierz odpowiedni¹ wartoœæ z odpowiedniego obiektu na liœcie
 		switch (arg1){
-			case 0: o = listaPN.get(arg0).getNumer(); 
+			case 0: o = listaPN.get(arg0).getNrKT();			 
 					break;
-			case 1: o = listaPN.get(arg0).getNazwa(); 
+			case 1: o = listaPN.get(arg0).getNazwaKT(); 
 					break;
-			case 2: o = listaPN.get(arg0).getNrKT(); 
+			case 2: o = listaPN.get(arg0).getNumer();
 					break;
-			case 3: o = listaPN.get(arg0).getNazwaKT(); 
+			case 3: o = listaPN.get(arg0).getNazwa();
 					break;
-			case 4: o = listaPN.get(arg0).getKoniecAnkiety(); 
+			case 4: o = listaPN.get(arg0).getZwiazany(); 
 					break;
-			case 5: o = listaPN.get(arg0).getAkredytacja(); 
+			case 5: o = listaPN.get(arg0).getKoniecAnkiety();
 					break;
-			case 6: o = listaPN.get(arg0).getZharmonizowana(); 
+			case 6: o = listaPN.get(arg0).getAkredytacja();
 					break;
-			case 7: o = listaPN.get(arg0).getZwiazany(); 
+			case 7: o = listaPN.get(arg0).getZharmonizowana();
 					break;
-			default: o = "B³êdna wartoœæ";
+			default:o = "B³êdna wartoœæ";
 					break;
 		}
 		return o;
@@ -69,17 +69,17 @@ public class TickTableModel extends AbstractTableModel {
 		
 		// pobierz odpowiedni¹ wartoœæ z odpowiedniego obiektu na liœcie
 		switch (arg1){
-			case 0: c = String.class;
+			case 0: c = Integer.class;
 					break;
 			case 1: c = String.class; 
 					break;
-			case 2: c = Integer.class; 
+			case 2: c = String.class;
 					break;
 			case 3: c = String.class; 
 					break;
-			case 4: c = String.class; 
+			case 4: c = Boolean.class; 
 					break;
-			case 5: c = Boolean.class; 
+			case 5: c = String.class; 
 					break;
 			case 6: c = Boolean.class;
 					break;
@@ -98,21 +98,21 @@ public class TickTableModel extends AbstractTableModel {
 		String cn = "";
 		
 		switch (arg1){
-		case 0: cn = "Numer";
+		case 0: cn = "Nr KT";
 				break;
-		case 1: cn = "Tytu³"; 
+		case 1: cn = "Nazwa KT"; 
 				break;
-		case 2: cn = "Nr KT"; 
+		case 2: cn = "Numer"; 
 				break;
-		case 3: cn = "Nazwa KT"; 
+		case 3: cn = "Tytu³"; 
 				break;
-		case 4: cn = "Koniec ankiety"; 
+		case 4: cn = "Do ankiety wew.";
 				break;
-		case 5: cn = "W akredytacji"; 
+		case 5: cn = "Koniec ankiety";
 				break;
-		case 6: cn = "Zharmonizowana";
+		case 6: cn = "W akredytacji"; 
 				break;
-		case 7: cn = "Do ankiety wew.";
+		case 7: cn = "Zharmonizowana";
 				break;
 		default: cn = "n/a";
 				break;
@@ -126,7 +126,7 @@ public class TickTableModel extends AbstractTableModel {
 	 * okreœla, czy komórki sa edytowalne. Tak - tylko dla kolumny 7 ("Do ankiety wewnêtrznej")
 	 */
 	public boolean isCellEditable(int rowIndex, int colIndex){
-		if (colIndex == 7) return true;
+		if (colIndex == 4) return true;
 		else return false;
 	}
 	
@@ -134,7 +134,7 @@ public class TickTableModel extends AbstractTableModel {
 	 * zmienia wartoœæ komórki (tylko dla kolumny 7)
 	 */
 	public void setValueAt(Object val, int rowIndex, int colIndex){
-		if ((colIndex == 7) && (val instanceof Boolean)){
+		if ((colIndex == 4) && (val instanceof Boolean)){
 			listaPN.get(rowIndex).setZwiazany((Boolean)val);
 			
 		}
