@@ -140,9 +140,7 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 				nazwaKT = "n/a";
 			}
 			
-			pn.setNazwaKT(nazwaKT);
-			System.out.println(pn.getNrKT());
-			
+			pn.setNazwaKT(nazwaKT);	
 		}
 		
 	}

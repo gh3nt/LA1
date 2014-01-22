@@ -1,10 +1,5 @@
 package pl.c0.la.pozyskiwanie;
 
-import java.util.ArrayList;
-
-import javax.swing.*;
-
-
 public class Panel1Controller {
 	
 	//obiekt zarz¹dzaj¹cy operacjami na stronach internetowych
@@ -31,7 +26,9 @@ public class Panel1Controller {
 	}
 
 	public void otworzPlikExcela(String plik) {
-		fm.otworzPlik(plik);	
+		fm.usunPlik(plik);
+		fm.utworzPlikExcela(plik);	
+		fm.otworzPlik(plik);
 	}
 	
 	/**

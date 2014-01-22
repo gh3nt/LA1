@@ -61,7 +61,7 @@ public class ProjektNormy implements Serializable{
 		this.numerKrotki = skrocNumer(numer);
 		this.nazwa = nazwa;
 		this.nazwaEN = nazwaEN;
-		this.zakresPL = zakresPL;
+		this.zakresPL = zakres;
 		this.zakresEN = zakresEN;
 		this.koniecAnkiety = koniecAnkiety;
 		
@@ -240,7 +240,6 @@ public class ProjektNormy implements Serializable{
 				numerKrotki = numer.substring(pocz);
 			}
 		}
-		
 		return numerKrotki;
 	}
 	
@@ -266,15 +265,18 @@ public class ProjektNormy implements Serializable{
 	
 	private void uzupelnijAkredytacja(String tekstAkredytacja){
 		String nr = this.getNumerKrotki();
-		if (tekstAkredytacja.contains(nr)){
+		String ta = tekstAkredytacja;
+		if ( (ta.contains(" " + nr + " ")) || (ta.contains(" " + nr + ":")) || (ta.contains("-" + nr + " ")) || (ta.contains("-" + nr + ":")) ){
 			this.setAkredytacja(true);
 		}
+		
 
 	}
 	
 	private void uzupelnijZharmonizowane(String tekstZharmonizowane){
 		String nr = this.getNumerKrotki();
-		if (tekstZharmonizowane.contains(nr)){
+		String ta = tekstZharmonizowane;
+		if ( (ta.contains(" " + nr + " ")) || (ta.contains(" " + nr + ":")) || (ta.contains("-" + nr + " ")) || (ta.contains("-" + nr + ":")) ){
 			this.setZharmonizowana(true);
 		}
 

@@ -1,7 +1,5 @@
 package pl.c0.la.pozyskiwanie;
 
-import java.util.ArrayList;
-
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -65,7 +63,7 @@ public class TickTableModel extends AbstractTableModel {
 	 */
 	@Override
 	public Class<?> getColumnClass(int arg1){
-		Class c = null;
+		Class<?> c = null;
 		
 		// pobierz odpowiedni¹ wartoœæ z odpowiedniego obiektu na liœcie
 		switch (arg1){

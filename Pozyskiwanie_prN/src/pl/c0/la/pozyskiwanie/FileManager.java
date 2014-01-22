@@ -1,13 +1,9 @@
 package pl.c0.la.pozyskiwanie;
 
 import java.awt.Desktop;
-import java.awt.Font;
 import java.io.*;
-import java.net.URI;
-import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,8 +11,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.poifs.filesystem.*;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -213,6 +208,7 @@ public class FileManager {
 		
 		wypiszDaneZListy(listaPN, sheet1, wb);
 		
+		wstawFormulySumowania(sheet1, wb);
 		
 		//zapisz plik
 		String fName = katalog +"ankietyzacja" + data + ".xlsx";
@@ -236,6 +232,72 @@ public class FileManager {
 	 */
 	private void wypiszDaneZListy(MyArrayList listaPN, Sheet s, XSSFWorkbook wb) {
 		//zdefiniuj styl komórek
+		CellStyle style = getStylStandardowy(wb);
+		CellStyle styleB = getStylWyrozniony(wb);
+		
+		
+		// TODO Auto-generated method stub
+		//dodaj pozycje z listy
+		int rowNum = 1;
+		for (int i = 0; i < listaPN.size(); i++){
+			
+			if(listaPN.get(i).getZwiazany()){
+				Row r = s.createRow(rowNum);
+				r.createCell(0).setCellValue(listaPN.get(i).getNrKT());
+				r.createCell(1).setCellValue(listaPN.get(i).getNazwaKT());
+				r.createCell(2).setCellValue(listaPN.get(i).getNumer());
+				r.createCell(3).setCellValue(listaPN.get(i).getNazwa());
+				r.createCell(4).setCellValue(listaPN.get(i).getKoniecAnkiety());
+				if (listaPN.get(i).getAkredytacja()){
+					r.createCell(5).setCellValue("TAK");
+				} else{
+					r.createCell(5).setCellValue("NIE");
+				}
+				if (listaPN.get(i).getZharmonizowana()){
+					r.createCell(6).setCellValue("TAK");
+				} else{
+					r.createCell(6).setCellValue("NIE");
+				}
+				r.createCell(7).setCellValue("");
+				
+				//ustaw styl standardowydla ka¿dej z komórek
+				for (int j = 0; j < 8; j++){
+					r.getCell(j).setCellStyle(style);
+				}
+				//pogrubiona czcionka dla akredytacja lub harmonizacja TAK
+				if (listaPN.get(i).getAkredytacja()){
+					r.getCell(5).setCellStyle(styleB);
+				}
+				if (listaPN.get(i).getZharmonizowana()){
+					r.getCell(6).setCellStyle(styleB);
+				}
+				
+				rowNum++;
+			}
+
+		}
+		
+	}
+
+	private CellStyle getStylWyrozniony(XSSFWorkbook wb) {
+		XSSFFont fontB = wb.createFont();
+		fontB.setFontHeightInPoints((short)8);
+		fontB.setFontName("Arial");
+		fontB.setBold(true);
+		CellStyle styleB = wb.createCellStyle();
+		styleB.setFont(fontB);
+		styleB.setWrapText(true);
+		styleB.setAlignment(CellStyle.ALIGN_LEFT);
+		styleB.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		short border = CellStyle.BORDER_THIN;
+		styleB.setBorderBottom(border);
+		styleB.setBorderLeft(border);
+		styleB.setBorderRight(border);
+		styleB.setBorderTop(border);
+		return styleB;
+	}
+
+	private CellStyle getStylStandardowy(XSSFWorkbook wb) {
 		XSSFFont font = wb.createFont();
 		font.setFontHeightInPoints((short)8);
 		font.setFontName("Arial");
@@ -250,35 +312,7 @@ public class FileManager {
 		style.setBorderLeft(border);
 		style.setBorderRight(border);
 		style.setBorderTop(border);
-		
-		// TODO Auto-generated method stub
-		//dodaj pozycje z listy
-		int rowNum = 1;
-		for (int i = 0; i < listaPN.size(); i++){
-			
-			if(listaPN.get(i).getZwiazany()){
-				Row r = s.createRow(rowNum);
-				r.createCell(0).setCellValue(listaPN.get(i).getNrKT());
-				r.createCell(1).setCellValue(listaPN.get(i).getNazwaKT());
-				r.createCell(2).setCellValue(listaPN.get(i).getNumer());
-				r.createCell(3).setCellValue(listaPN.get(i).getNazwa());
-				r.createCell(4).setCellValue(listaPN.get(i).getKoniecAnkiety());
-				r.createCell(5).setCellValue(listaPN.get(i).getAkredytacja());
-				r.createCell(6).setCellValue(listaPN.get(i).getZharmonizowana());
-				r.createCell(7).setCellValue("");
-				
-				//ustaw styl dla ka¿dej z komórek
-				for (int j = 0; j < 8; j++){
-					r.getCell(j).setCellStyle(style);
-				}
-				
-				//if (r.getHeight() < 500) r.setHeight((short) 500);
-				
-				rowNum++;
-			}
-
-		}
-		
+		return style;
 	}
 
 	private Sheet przygotujArkusz(XSSFWorkbook wb, String data){
@@ -304,8 +338,65 @@ public class FileManager {
 			s.setColumnWidth(i, col[i].szerokosc * 256);
 		}
 		
-		
 		//utwórz styl dla nag³ówków
+		CellStyle style = getStylNaglowka(wb);
+		
+		//wypisz nag³ówki
+		for(int i = 0; i < col.length; i++){
+			Cell c = row.createCell(i);
+			c.setCellStyle(style);
+			c.setCellValue(col[i].nazwa);	
+		}
+
+		return s;
+	}
+
+	private void wstawFormulySumowania(Sheet s, XSSFWorkbook wb) {
+		
+		//numer kolumny z kodami zak³adów
+		int kolKZ = 9;
+		
+		//numer kolumny sumami
+		int kolS = kolKZ + 1;
+		String[] zaklady = {"NA", "NB", "NF", "NG", "NK", "NM", "NP", "OSK", "OWN", "LN", "ZC"}; 
+		CellStyle style = getStylStandardowy(wb);
+		
+		for(int row = 1; row <= zaklady.length; row++ ){
+			
+			//sprawdŸ czy istnieje wiersz, jak nie to utwórz
+			Row r = s.getRow(row);
+			if(r == null){
+				r = s.createRow(row);
+			}
+			
+			//sprawdz czy istnieje komórka na kod KT, jak nie to utwórz
+			Cell c = r.getCell(kolKZ);
+			if (c == null){
+				c= r.createCell(kolKZ);
+			}
+			
+			//wstaw kod zak³adu
+			c.setCellStyle(style);
+			c.setCellValue(zaklady[row-1]);
+			
+			//sprawdz czy istnieje komórka na formu³ê sumy, jak nie to utwórz
+			c = r.getCell(kolS);
+			if (c == null){
+				c= r.createCell(kolS);
+			}
+			
+			//wstaw formu³e
+			c.setCellStyle(style);
+			String formula = "COUNTIF(H2:H500,\"*" + zaklady[row-1] + "*\")"; //(H2:H500;"*NA*)
+			c.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+			c.setCellFormula(formula);
+		}
+		
+		
+		
+	}
+
+	private CellStyle getStylNaglowka(XSSFWorkbook wb) {
 		XSSFFont font = wb.createFont();
 		font.setFontHeightInPoints((short)8);
 		font.setFontName("Arial");
@@ -320,18 +411,10 @@ public class FileManager {
 		style.setBorderLeft(border);
 		style.setBorderRight(border);
 		style.setBorderTop(border);
-		
-		//wypisz nag³ówki
-		for(int i = 0; i < col.length; i++){
-			Cell c = row.createCell(i);
-			c.setCellStyle(style);
-			c.setCellValue(col[i].nazwa);	
-		}
-		
-		return s;
+		return style;
 	}
-
 	
+
 	/**
 	 * zwraca aktualn¹ date w formacie dd_mm_yyyy_HHmmss
 	 * @return
@@ -377,6 +460,26 @@ public class FileManager {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * tworzy pusty plik Excela o podanej nazwie
+	 * @param plik
+	 */
+	public void utworzPlikExcela(String plik) {
+		XSSFWorkbook wb = new XSSFWorkbook();
+		wb.createSheet("wklej_projekty");		
+		
+		//zapisz plik
+		String fName = plik;
+		FileOutputStream fileOut = null;
+		try{
+			fileOut = new FileOutputStream(fName);
+			wb.write(fileOut);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

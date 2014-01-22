@@ -2,8 +2,6 @@ package pl.c0.la.pozyskiwanie;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,22 +15,21 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
+
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
+	
+	//nazwa okna
+	String no = "Pozyskiwanie informacji o projektach norm v 0.2";
 	
 	//WSZYSTKIE ADRESY PLIKÓW SA ZMIENIANE W Konstruktorze - dodawana jest œcie¿ka bezwzglêdna
 	//adres strony ankiety powszechnej
 	private String urlAnkiety = "https://pzn.pkn.pl/pzn-share/page/pzn/polling";
 	
 	//sciezka dostêpu do pliku Excela, gdzie bêd¹ wklejane informacje
-	private String plik = "\\resources\\test.xlsx";
+	private String plik = "\\resources\\wklej_projekty.xlsx";
 	
 	//sciezka dostepu do pliku zserializowanej listy projektów norm wczeœniej przetwarzanych
 	private String plikPrzetwarzane = "\\resources\\przetwarzane.list";
@@ -77,8 +74,9 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		//ustaw sciezke dostêpu do plików
-		JOptionPane.showMessageDialog(this, "a3");
 		ustawPliki();
+		
+		this.setTitle(no);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 378);
@@ -96,7 +94,7 @@ public class MainFrame extends JFrame {
 		splitPane.setLeftComponent(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JLabel lblPozyskiwanieInformacjiO = new JLabel("Pozyskiwanie informacji o projektach norm poddanych ankiecie powszechnej PKN");
+		JLabel lblPozyskiwanieInformacjiO = new JLabel(no + "Ankieta powszechna PKN => Ankieta wewnêtrzna ITB");
 		lblPozyskiwanieInformacjiO.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblPozyskiwanieInformacjiO.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblPozyskiwanieInformacjiO);
@@ -223,9 +221,9 @@ public class MainFrame extends JFrame {
 			
 			String path = MainFrame.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 			f =  new File(path);
-			JOptionPane.showMessageDialog(this, f.getCanonicalPath());
-			JOptionPane.showMessageDialog(this, f.getPath());
-			JOptionPane.showMessageDialog(this, f.getAbsolutePath());
+			//JOptionPane.showMessageDialog(this, f.getCanonicalPath());
+			//JOptionPane.showMessageDialog(this, f.getPath());
+			//JOptionPane.showMessageDialog(this, f.getAbsolutePath());
 			//f = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
 
 		} catch (Exception e1) {

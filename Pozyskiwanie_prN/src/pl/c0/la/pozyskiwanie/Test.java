@@ -1,7 +1,6 @@
 package pl.c0.la.pozyskiwanie;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javax.swing.JTextArea;

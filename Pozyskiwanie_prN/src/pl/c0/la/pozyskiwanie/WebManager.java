@@ -1,9 +1,5 @@
 package pl.c0.la.pozyskiwanie;
 
-import java.io.*;
-import java.util.ArrayList;
-import org.apache.poi.poifs.filesystem.*;
-import org.apache.poi.xssf.usermodel.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
