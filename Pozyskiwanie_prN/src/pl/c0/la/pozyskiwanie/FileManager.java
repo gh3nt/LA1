@@ -481,5 +481,50 @@ public class FileManager {
 		}
 		
 	}
+
+	/**
+	 * tworzy plik telstowy z list¹ projektów norm wybranych do ankietyzacji wewnêtrznej w ITB
+	 * @param listaPN
+	 * @param katalog
+	 */
+	public void wypiszTekst(MyArrayList listaPN, String katalog) {
+		//pobierz datê do nazwy pliku
+		String data = pobierzDate();
+
+		//nazwa pliku zawiera datê i czas utworzenia
+		String fName = katalog +"ankietyzacja" + data + ".txt";
+		
+		//utwórz writera
+		try{
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fName), "utf-8"));
+			
+			//dla ka¿dego projektu na liœcie
+			for (ProjektNormy pn : listaPN){
+				if (pn.getZwiazany()){
+					bw.write(pn.getNumer());
+					bw.newLine();
+					bw.write("Zharmonizowany: " + (pn.getZharmonizowana() ? "TAK " : "NIE ") 
+							+ " ||  W zakresie akredytacji ITB: " + (pn.getAkredytacja() ? "TAK" : "NIE"));
+					bw.newLine();
+					bw.write(pn.getNazwa());
+					bw.newLine();
+					bw.write("KT nr " + pn.getNrKT() + " " + pn.getNazwaKT());
+					bw.newLine();
+					bw.write("Koniec ankiety: " + pn.getKoniecAnkiety());
+					bw.newLine();
+					bw.newLine();
+				}
+			}
+			
+			
+			bw.close();
+			otworzPlik(fName);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 	
 }

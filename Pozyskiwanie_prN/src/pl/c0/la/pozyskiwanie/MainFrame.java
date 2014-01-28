@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	
 	//nazwa okna
-	String no = "Pozyskiwanie informacji o projektach norm v 0.2";
+	String no = "Pozyskiwanie informacji o projektach norm v 0.3 ";
 	
 	//WSZYSTKIE ADRESY PLIKÓW SA ZMIENIANE W Konstruktorze - dodawana jest œcie¿ka bezwzglêdna
 	//adres strony ankiety powszechnej
