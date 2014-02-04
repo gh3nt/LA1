@@ -447,8 +447,15 @@ public class FileManager {
 		}
 	}
 
+	/**
+	 * Pobiera listê plików przetwarzanych, dodaje te, które by³y przetwarzane w bie¿¹cej sesji i zapisuje wszysktie razem na liœcie przetwarzanych
+	 * @param listaPrzetwarzanych
+	 * @param plikPrzetwarzane
+	 */
 	public void zapiszListePrzetwarzanych(MyArrayList listaPrzetwarzanych,
 			String plikPrzetwarzane) {
+		MyArrayList starePrzetwarzane = (MyArrayList)this.deserializeObject(plikPrzetwarzane);
+		listaPrzetwarzanych.addAll(starePrzetwarzane);
 		this.serializeObject(listaPrzetwarzanych, plikPrzetwarzane);
 		
 	}
