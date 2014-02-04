@@ -420,7 +420,7 @@ public class FileManager {
 	 * @return
 	 */
 	public String pobierzDate() {
-		DateFormat f = new SimpleDateFormat("dd_mm_yyyy_HHmmss");
+		DateFormat f = new SimpleDateFormat("dd_MM_yyyy_HHmmss");
 		Calendar cal = Calendar.getInstance();
 		return f.format(cal.getTime());
 	}
