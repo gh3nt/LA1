@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	
 	//nazwa okna
-	String no = "Pozyskiwanie informacji o projektach norm v 0.3 ";
+	String no = "Pozyskiwanie informacji o projektach norm v 0.4 ";
 	
 	//WSZYSTKIE ADRESY PLIKÓW SA ZMIENIANE W Konstruktorze - dodawana jest œcie¿ka bezwzglêdna
 	//adres strony ankiety powszechnej
@@ -127,8 +127,10 @@ public class MainFrame extends JFrame {
 		FileManager fm = new FileManager();	
 		MyArrayList listaPN_surowa = fm.pobierzProjekty(this.getPlik()); //lista, z której zostan¹ okreœlone przetwarzane projekty
 		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(getPlikPrzetwarzane());
-		MyArrayList listaPN = listaPN_surowa;
+		MyArrayList listaPN = new MyArrayList();
+		listaPN.addAll(listaPN_surowa);
 		listaPN.usunProjekty(przetwarzane);
+		listaPN_surowa.usunProjekty(przetwarzane); //z listy projektów do zpaisania jako przetwarzane usuwam przetwarzane wczeœniej, ¿eby nie duplikowaæ 
 		
 		//zaznacz normy w zakresie akredytacji i zharmonizowane
 		listaPN.ustawAkredytacjaZharmonizowane(plikAkredytacja, plikZharmonizowane);
