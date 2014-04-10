@@ -1,6 +1,8 @@
 package pl.c0.la.pozyskiwanie;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.Scanner;
 
 /**
  * 
@@ -248,36 +250,73 @@ public class ProjektNormy implements Serializable{
 	}
 	
 	/**
-	 * na podstawie podanych stringów (zakres akredytacji, wykaz norm zharmonizowanych) ustawia odpowidnie flagi
+	 * na podstawie podanych plików (zakres akredytacji, wykaz norm zharmonizowanych) ustawia odpowidnie flagi
 	 *   - czy projekt dotyczy normy zharmonizowanej 
 	 *   - czy projekt dotyczy normy z zakresu akredytacji ITB
 	 * @param tekstAkredytacja
 	 * @param tekstZharmonizowane
 	 */
-	public void uzupelnijAkredytacjaZharmonizowane(String tekstAkredytacja, String tekstZharmonizowane){
-		this.uzupelnijAkredytacja(tekstAkredytacja);
-		this.uzupelnijZharmonizowane(tekstZharmonizowane);
+	public void uzupelnijAkredytacjaZharmonizowane(String plikAkredytacja, String plikZharmonizowane){
+		this.uzupelnijAkredytacja(plikAkredytacja);
+		this.uzupelnijZharmonizowane(plikZharmonizowane);
 		
 		//je¿eli przynajmniej jedna flaga (akredytacja lub zharmonizowany) jest ustawiona,
 		//domyœlnie zaznacz projekt jako zwi¹zany z zakresem dzia³alnoœci ITB i przeznaczony do ankiety wewnêtrznej/
 		if (this.getAkredytacja() || this.getZharmonizowana()) this.setZwiazany(true);
 	}
 	
-	private void uzupelnijAkredytacja(String tekstAkredytacja){
+	private void uzupelnijAkredytacja(String plikAkredytacja){
 		String nr = this.getNumerKrotki();
-		String ta = tekstAkredytacja;
-		if ( (ta.contains(" " + nr + " ")) || (ta.contains(" " + nr + ":")) || (ta.contains("-" + nr + " ")) || (ta.contains("-" + nr + ":")) ){
-			this.setAkredytacja(true);
+		
+		Scanner sc = null;
+		String l = "";
+		
+
+		try{
+			
+			sc = new Scanner(new File(plikAkredytacja), "UTF-8");
+			//sprawdz linia po linii ca³y plik, czy wystepuje numer skrócony normy w odpowiedniej formie.
+			//Jak wyst¹pi - przerwij pêtlê, ustaw odpowiedni znacznik (projekt normy jest w zakresie akredytacji
+			while(sc.hasNextLine()){
+				l = sc.nextLine();
+				if ((l.contains(" " + nr + " ")) || (l.contains(" " + nr + ":")) || (l.contains("-" + nr + " ")) || (l.contains("-" + nr + ":"))){
+					this.setAkredytacja(true);
+					break;
+				}
+			}
+		
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			if (sc!=null)sc.close();
 		}
 		
 
 	}
 	
-	private void uzupelnijZharmonizowane(String tekstZharmonizowane){
+	private void uzupelnijZharmonizowane(String plikZharmonizowane){
 		String nr = this.getNumerKrotki();
-		String ta = tekstZharmonizowane;
-		if ( (ta.contains(" " + nr + " ")) || (ta.contains(" " + nr + ":")) || (ta.contains("-" + nr + " ")) || (ta.contains("-" + nr + ":")) ){
-			this.setZharmonizowana(true);
+		
+		Scanner sc = null;
+		String l = "";
+		
+		try{
+			
+			sc = new Scanner(new File(plikZharmonizowane), "UTF-8");
+			//sprawdz linia po linii ca³y plik, czy wystepuje numer skrócony normy w odpowiedniej formie.
+			//Jak wyst¹pi - przerwij pêtlê, ustaw odpowiedni znacznik (projekt normy jest w zakresie akredytacji
+			while(sc.hasNextLine()){
+				l = sc.nextLine();
+				if ((l.contains(" " + nr + " ")) || (l.contains(" " + nr + ":")) || (l.contains("-" + nr + " ")) || (l.contains("-" + nr + ":"))){
+					this.setZharmonizowana(true);
+					break;
+				}
+			}
+		
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			if (sc!=null)sc.close();
 		}
 
 	}

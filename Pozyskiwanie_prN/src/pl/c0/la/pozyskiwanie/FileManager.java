@@ -4,10 +4,7 @@ import java.awt.Desktop;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.*;
 
 import javax.swing.JOptionPane;
 
@@ -191,6 +188,30 @@ public class FileManager {
 			if (sc!=null)sc.close();
 		}
 		return s;
+	}
+	
+	/**
+	 * Pobiera zawartoœæ pliku w formie listy stringów (1 pozycja - 1 linia)
+	 * @param plik
+	 * @return
+	 */
+	public List<String> pobierzListeLiniiZPliku(String plik){
+		List<String> lines = new ArrayList<String>();
+		Scanner sc = null;
+
+		try{
+			
+			sc = new Scanner(new File(plik));
+			while(sc.hasNextLine()){
+				lines.add(sc.nextLine());
+			}
+		
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			if (sc!=null)sc.close();
+		}
+		return lines;
 	}
 
 	/**

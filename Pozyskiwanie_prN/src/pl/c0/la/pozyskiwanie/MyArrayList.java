@@ -61,14 +61,10 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 	 */
 	public void ustawAkredytacjaZharmonizowane(String plikAkredytacja, String plikZharmonizowane){
 		
-		// pobierz do Stringów: zakres akredytacji ITB, wykaz norm zharmonizowanych
-		FileManager fm = new FileManager();
-		String tekstAkredytacja = fm.pobierzTekstZPliku(plikAkredytacja);
-		String tekstZharmonizowane = fm.pobierzTekstZPliku(plikZharmonizowane);
 		
 		//ustaw odpowiednie flagi dla kazdego z projektów na liœcie (czy projekt normy w zakresie akredytacji, czy projekt dotyczy normy zharmonizowanej)
 		for(int i = 0; i < this.size(); i++){
-			this.get(i).uzupelnijAkredytacjaZharmonizowane(tekstAkredytacja, tekstZharmonizowane);
+			this.get(i).uzupelnijAkredytacjaZharmonizowane(plikAkredytacja, plikZharmonizowane);
 		}		
 		
 	}

@@ -2,6 +2,7 @@ package pl.c0.la.pozyskiwanie;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.swing.JTextArea;
 
@@ -21,9 +22,53 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test10();
+		test12();
 		
 
+	}
+	
+	private static void test12(){
+		MainFrame mf = new MainFrame();
+		
+		
+		MyArrayList lista = new MyArrayList();
+		
+		ProjektNormy pn1 = new ProjektNormy(111, "prPN-prEN 14904E", "nazwa1", "nazwaEN", "2014-05-05");
+		ProjektNormy pn2 = new ProjektNormy(222, "prPN-prEN ISO 844E", "nazwa2", "nazwaEN", "2014-05-05");
+		ProjektNormy pn3 = new ProjektNormy(333, "prPN-prEN ISO 14846E", "nazwa2", "nazwaEN", "2014-05-05");
+		
+		lista.add(pn1);
+		lista.add(pn2);
+		lista.add(pn3);
+		
+		for (ProjektNormy pn :lista){
+			pn.uzupelnijAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikZharmonizowane());
+			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getAkredytacja() );
+		}
+	}
+	
+	
+	private static void test11(){
+		MainFrame mf = new MainFrame();
+		
+		
+		MyArrayList lista = new MyArrayList();
+		
+		ProjektNormy pn1 = new ProjektNormy(111, "prPN-prEN 14904E", "nazwa1", "nazwaEN", "2014-05-05");
+		ProjektNormy pn2 = new ProjektNormy(222, "prPN-prEN ISO 844E", "nazwa2", "nazwaEN", "2014-05-05");
+		ProjektNormy pn3 = new ProjektNormy(333, "prPN-prEN ISO 140-5", "nazwa2", "nazwaEN", "2014-05-05");
+		
+		lista.add(pn1);
+		lista.add(pn2);
+		lista.add(pn3);
+		
+		lista.ustawAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikZharmonizowane());
+		
+		for (ProjektNormy pn :lista){
+			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getAkredytacja() );
+		}
+		
+		
 	}
 	
 	private static void test10(){
