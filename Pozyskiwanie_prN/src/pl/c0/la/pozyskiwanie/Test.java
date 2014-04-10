@@ -43,7 +43,7 @@ public class Test {
 		
 		for (ProjektNormy pn :lista){
 			pn.uzupelnijAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikZharmonizowane());
-			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getAkredytacja() );
+			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getZharmonizowana());
 		}
 	}
 	
