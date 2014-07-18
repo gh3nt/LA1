@@ -22,9 +22,28 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test12();
+		test13();
 		
 
+	}
+	
+	private static void test13(){
+		String s1 = "eurokod 123123 tralalala";
+		String s2 = "dsfsfsdfEurocode 2313231414";
+		String s3 = "dsfsfsdfeurokod 2313231414";
+		String s4 = "eurocode 123123 tralalala";
+		String s5 = "sdsargrgraeijgfriogj;ejrigjio;ejoi;hgoitheo;i";
+		
+		String e1 = "eurokod";
+		String e2 = "eurocode";
+		
+		System.out.println(s1.contains("Eurokod") || s1.contains("eurocode"));
+		System.out.println(s2.contains("eurokod") || s2.contains("eurocode"));
+		System.out.println(s3.contains("eurokod") || s3.contains("eurocode"));
+		System.out.println(s4.contains("eurokod") || s4.contains("eurocode"));
+		System.out.println(s5.contains("eurokod") || s5.contains("eurocode"));
+		
+		
 	}
 	
 	private static void test12(){

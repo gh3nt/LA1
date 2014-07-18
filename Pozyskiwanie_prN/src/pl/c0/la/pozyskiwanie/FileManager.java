@@ -549,10 +549,51 @@ public class FileManager {
 			otworzPlik(fName);
 		} catch (Exception e){
 			e.printStackTrace();
-		}
-		
-		
-		
+		}	
 	}
+	
+	/**
+	 * Tworzy plik tesktowy z list¹ projektów norm zawieraj¹cych w nazwie s³owo "Eurokod" lub "Eurocode"
+	 */
+	public void wypiszEurokody(MyArrayList listaPN, String katalog){
+		//pobierz datê do nazwy pliku
+		String data = pobierzDate();
+
+		//nazwa pliku zawiera datê i czas utworzenia
+		String fName = katalog +"ankietyzacja_eurokody" + data + ".txt";
+		int counter = 0; //ile projektów jest Eurokodami
+		
+		//utwórz writera
+		try{
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fName), "utf-8"));
+			
+			
+			//dla ka¿dego projektu na liœcie
+			for (ProjektNormy pn : listaPN){
+				//zamieœæ projekt w pliku, je¿eli zosta³ wskazany jako zwi¹zany i je¿eli ma w nazwie  ze jest eurokodem
+				if (pn.getZwiazany() && (pn.getNazwa().contains("Eurokod") || pn.getNazwa().contains("Eurocode"))){
+					counter++;
+					bw.write(pn.getNumer());
+					bw.newLine();
+					bw.write(pn.getNazwa());
+					bw.newLine();
+					bw.write("KT nr " + pn.getNrKT() + " " + pn.getNazwaKT());
+					bw.newLine();
+					bw.write("Koniec ankiety: " + pn.getKoniecAnkiety());
+					bw.newLine();
+					bw.newLine();
+				}
+			}
+			
+			//podaj liczbê projektów na koñcu pliku
+			bw.write("Liczba projektów: " + counter);
+			
+			bw.close();
+			otworzPlik(fName);
+		} catch (Exception e){
+			e.printStackTrace();
+		}	
+	}	
+	
 	
 }

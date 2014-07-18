@@ -79,6 +79,7 @@ public class Panel2 extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				fm.eksportujDoExcela(listaPN, parent.getKatalogEksport());
 				fm.wypiszTekst(listaPN, parent.getKatalogEksport());
+				fm.wypiszEurokody(listaPN, parent.getKatalogEksport());
 				fm.zapiszListePrzetwarzanych(listaPrzetwarzanych, parent.getPlikPrzetwarzane());
 			}
 		});
