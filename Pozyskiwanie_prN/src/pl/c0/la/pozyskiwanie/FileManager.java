@@ -476,6 +476,7 @@ public class FileManager {
 	public void zapiszListePrzetwarzanych(MyArrayList listaPrzetwarzanych,
 			String plikPrzetwarzane) {
 		MyArrayList starePrzetwarzane = (MyArrayList)this.deserializeObject(plikPrzetwarzane);
+		starePrzetwarzane.usunBardzoStare();
 		if (starePrzetwarzane!=null) listaPrzetwarzanych.addAll(starePrzetwarzane);
 		this.serializeObject(listaPrzetwarzanych, plikPrzetwarzane);
 		

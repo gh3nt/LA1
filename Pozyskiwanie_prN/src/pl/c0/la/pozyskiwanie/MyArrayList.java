@@ -1,9 +1,11 @@
 package pl.c0.la.pozyskiwanie;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 
 /**
  * W³asna klasa dziedzicz¹ca po ArrayList, stworzona na potrzeby przechowywania informacji o projektach norm
@@ -43,6 +45,39 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 				}
 				
 			}
+		}
+	}
+	
+	/**
+	 * usuwa projekty o dacie zakoñczenia o ponad miesi¹c wczeœniejszej ni¿ obecna
+	 */
+	public void usunBardzoStare(){
+		
+		Calendar teraz = Calendar.getInstance();
+		String koniecAnkiety = "";
+		int dzien = 0;
+		int mies = 0;
+		int rok = 0;
+		
+		//dla ka¿dego projektu na liœcie
+		for (int i = 0; i < this.size(); i++){
+				
+			
+			//utwórz datê z informacji o prn
+			String kA = this.get(i).getKoniecAnkiety();
+			dzien = Integer.parseInt(kA.substring(0, 1));
+			mies = Integer.parseInt(kA.substring(2, 3));
+			rok = Integer.parseInt(kA.substring(5, 8));
+			GregorianCalendar dataKA = new GregorianCalendar(rok, mies, dzien);
+		
+			
+			
+			//je¿eli data zakonczenia ankiety jest wczeœniejsza od obecnej, usuñ wpis			
+			if (dataKA.before(teraz)) {
+				this.remove(i);
+				i--;
+			}
+			
 		}
 	}
 
