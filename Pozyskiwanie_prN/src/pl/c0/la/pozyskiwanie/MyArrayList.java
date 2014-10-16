@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Scanner;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
@@ -64,10 +65,12 @@ public class MyArrayList extends ArrayList<ProjektNormy> implements Serializable
 				
 			
 			//utwórz datê z informacji o prn
-			String kA = this.get(i).getKoniecAnkiety();
-			dzien = Integer.parseInt(kA.substring(0, 1));
-			mies = Integer.parseInt(kA.substring(2, 3));
-			rok = Integer.parseInt(kA.substring(5, 8));
+			Scanner scanner = new Scanner(this.get(i).getKoniecAnkiety()).useDelimiter("\\.");
+			//System.out.println(scanner.nextInt());
+			//System.out.println(scanner.next());
+			dzien = scanner.nextInt();
+			mies = scanner.nextInt();
+			rok = scanner.nextInt();
 			GregorianCalendar dataKA = new GregorianCalendar(rok, mies, dzien);
 		
 			

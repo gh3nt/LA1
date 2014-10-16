@@ -3,6 +3,7 @@ package pl.c0.la.pozyskiwanie;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JTextArea;
 
@@ -22,9 +23,19 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		test13();
+		test14();
 		
 
+	}
+	
+	private static void test14(){
+		String s = "17.11.2014";
+		Scanner sc = new Scanner(s).useDelimiter("\\.");
+		
+		while (sc.hasNext()){
+			System.out.println(sc.next());
+		}
+		
 	}
 	
 	private static void test13(){
