@@ -61,18 +61,18 @@ public class Test {
 		MainFrame mf = new MainFrame();
 		
 		
-		MyArrayList lista = new MyArrayList();
+		MyArrayList_v2 lista = new MyArrayList_v2();
 		
-		ProjektNormy pn1 = new ProjektNormy(111, "prPN-prEN 14904E", "nazwa1", "nazwaEN", "2014-05-05");
-		ProjektNormy pn2 = new ProjektNormy(222, "prPN-prEN ISO 844E", "nazwa2", "nazwaEN", "2014-05-05");
-		ProjektNormy pn3 = new ProjektNormy(333, "prPN-prEN ISO 14846E", "nazwa2", "nazwaEN", "2014-05-05");
+		ProjektNormy_v2 pn1 = new ProjektNormy_v2(111, "prPN-prEN 14904E", "nazwa1", "nazwaEN", "2014-05-05");
+		ProjektNormy_v2 pn2 = new ProjektNormy_v2(222, "prPN-prEN ISO 844E", "nazwa2", "nazwaEN", "2014-05-05");
+		ProjektNormy_v2 pn3 = new ProjektNormy_v2(333, "prPN-prEN ISO 14846E", "nazwa2", "nazwaEN", "2014-05-05");
 		
 		lista.add(pn1);
 		lista.add(pn2);
 		lista.add(pn3);
 		
-		for (ProjektNormy pn :lista){
-			pn.uzupelnijAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikZharmonizowane());
+		for (ProjektNormy_v2 pn :lista){
+			pn.uzupelnijAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikAkredytacjaZC(),  mf.getPlikZharmonizowane());
 			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getZharmonizowana());
 		}
 	}
@@ -82,19 +82,19 @@ public class Test {
 		MainFrame mf = new MainFrame();
 		
 		
-		MyArrayList lista = new MyArrayList();
+		MyArrayList_v2 lista = new MyArrayList_v2();
 		
-		ProjektNormy pn1 = new ProjektNormy(111, "prPN-prEN 14904E", "nazwa1", "nazwaEN", "2014-05-05");
-		ProjektNormy pn2 = new ProjektNormy(222, "prPN-prEN ISO 844E", "nazwa2", "nazwaEN", "2014-05-05");
-		ProjektNormy pn3 = new ProjektNormy(333, "prPN-prEN ISO 140-5", "nazwa2", "nazwaEN", "2014-05-05");
+		ProjektNormy_v2 pn1 = new ProjektNormy_v2(111, "prPN-prEN 14904E", "nazwa1", "nazwaEN", "2014-05-05");
+		ProjektNormy_v2 pn2 = new ProjektNormy_v2(222, "prPN-prEN ISO 844E", "nazwa2", "nazwaEN", "2014-05-05");
+		ProjektNormy_v2 pn3 = new ProjektNormy_v2(333, "prPN-prEN ISO 140-5", "nazwa2", "nazwaEN", "2014-05-05");
 		
 		lista.add(pn1);
 		lista.add(pn2);
 		lista.add(pn3);
 		
-		lista.ustawAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikZharmonizowane());
+		lista.ustawAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikAkredytacjaZC(), mf.getPlikZharmonizowane());
 		
-		for (ProjektNormy pn :lista){
+		for (ProjektNormy_v2 pn :lista){
 			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getAkredytacja() );
 		}
 		
@@ -180,9 +180,9 @@ public class Test {
 		//sciezka dostêpu do pliku Excela, gdzie bêd¹ wklejane informacje
 		String plik = "c:\\temp\\test.xlsx";
 		FileManager fm = new FileManager();
-		MyArrayList lista1 = fm.pobierzProjekty(plik);
+		MyArrayList_v2 lista1 = fm.pobierzProjekty(plik);
 		
-		MyArrayList lista2 = new MyArrayList();
+		MyArrayList_v2 lista2 = new MyArrayList_v2();
 		lista2.add(lista1.get(0));
 		lista2.add(lista1.get(1));
 		lista2.add(lista1.get(2));
@@ -207,15 +207,15 @@ public class Test {
 		
 		/*
 		//serializacja
-		MyArrayList list = new MyArrayList();
-		list.add(new ProjektNormy(5, "a","b", "c", "12.12.12"));
-		list.add(new ProjektNormy(10, "f","gg", "fbg", "12.12.12"));		
+		MyArrayList_v2 list = new MyArrayList_v2();
+		list.add(new ProjektNormy_v2(5, "a","b", "c", "12.12.12"));
+		list.add(new ProjektNormy_v2(10, "f","gg", "fbg", "12.12.12"));		
 		fm.serializeObject(list, plikPrzetwarzane);
 		System.out.println("serializacja wykonana");
 		*/
 		
 		//deserializacja
-		MyArrayList drugaLista = (MyArrayList) fm.deserializeObject(plikPrzetwarzane);
+		MyArrayList_v2 drugaLista = (MyArrayList_v2) fm.deserializeObject(plikPrzetwarzane);
 		System.out.println("deserializacja wykonana");
 		System.out.println(drugaLista);
 		
@@ -229,7 +229,7 @@ public class Test {
 	
 	private static void test1(){
 		//test funkcji wybieraj¹cej skrócony numer
-				ProjektNormy prN = new ProjektNormy("prPN-prEN ISO 12345-6-7E:2011/prA","nazwa projektiu", "nazwa EN", "zakres", "zakresEN", "12.12.2013");
+				ProjektNormy_v2 prN = new ProjektNormy_v2("prPN-prEN ISO 12345-6-7E:2011/prA","nazwa projektiu", "nazwa EN", "zakres", "zakresEN", "12.12.2013");
 				System.out.println(prN.getNumer());
 				System.out.println(prN.getNumerKrotki());
 				

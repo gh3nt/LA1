@@ -95,7 +95,7 @@ public class MyArrayList_v2 extends ArrayList<ProjektNormy_v2> implements Serial
 	/**
 	 * ustaw odpowiednie flagi (czy projekt normy w zakresie akredytacji, czy projekt dotyczy normy zharmonizowanej)
 	 * @param plikAkredytacja - œcie¿ka dostêpu do pliku tekstowego z zakresem akredytacji LN
-	 * @param plikAkredytacja - œcie¿ka dostêpu do pliku tekstowego z zakresem akredytacji ZC
+	 * @param plikAkredytacjaZC - œcie¿ka dostêpu do pliku tekstowego z zakresem akredytacji ZC
 	 * @param plikZharmonizowane - œciezka dostêpu do pliku tekstowego z wykazem norm zharmonizowanych
 	 */
 	public void ustawAkredytacjaZharmonizowane(String plikAkredytacja, String plikAkredytacjaZC, String plikZharmonizowane){

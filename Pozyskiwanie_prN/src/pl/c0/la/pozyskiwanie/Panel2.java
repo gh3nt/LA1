@@ -26,18 +26,18 @@ public class Panel2 extends JPanel {
 	private JButton eksportuj;
 	
 	//lista projektów norm
-	private MyArrayList listaPN;
+	private MyArrayList_v2 listaPN;
 	
 	//klasa zarz¹dzaj¹ca plikami
 	FileManager fm;
 	
 	//lista wszystkich pobranych projektów (na potrzebu listy przetwaranych
-	MyArrayList listaPrzetwarzanych;
+	MyArrayList_v2 listaPrzetwarzanych;
 
 	/**
 	 * Create the panel.
 	 */
-	public Panel2(MyArrayList listaPN, MainFrame parent, MyArrayList listaPrzetwarzanych) {
+	public Panel2(MyArrayList_v2 listaPN, MainFrame parent, MyArrayList_v2 listaPrzetwarzanych) {
 		
 		this.listaPN = listaPN;
 		fm = new FileManager();

@@ -133,15 +133,15 @@ public class MainFrame extends JFrame {
 		
 		//usuñ z listy projektów norm te, ktore znajduj¹ siê na liœcie wczeœniej przetwarzanych
 		FileManager fm = new FileManager();	
-		MyArrayList listaPN_surowa = fm.pobierzProjekty(this.getPlik()); //lista, z której zostan¹ okreœlone przetwarzane projekty
-		MyArrayList przetwarzane = (MyArrayList)fm.deserializeObject(getPlikPrzetwarzane());
-		MyArrayList listaPN = new MyArrayList();
+		MyArrayList_v2 listaPN_surowa = fm.pobierzProjekty(this.getPlik()); //lista, z której zostan¹ okreœlone przetwarzane projekty
+		MyArrayList_v2 przetwarzane = (MyArrayList_v2)fm.deserializeObject(getPlikPrzetwarzane());
+		MyArrayList_v2 listaPN = new MyArrayList_v2();
 		listaPN.addAll(listaPN_surowa);
 		listaPN.usunProjekty(przetwarzane);
 		listaPN_surowa.usunProjekty(przetwarzane); //z listy projektów do zpaisania jako przetwarzane usuwam przetwarzane wczeœniej, ¿eby nie duplikowaæ 
 		
 		//zaznacz normy w zakresie akredytacji i zharmonizowane
-		listaPN.ustawAkredytacjaZharmonizowane(plikAkredytacja, plikZharmonizowane);
+		listaPN.ustawAkredytacjaZharmonizowane(plikAkredytacja, plikAkredytacjaZC, plikZharmonizowane);
 		
 		//wype³nij informacje o nazwach KT
 		listaPN.pobierzNazwyKT();

@@ -11,10 +11,10 @@ import javax.swing.table.AbstractTableModel;
 public class TickTableModel extends AbstractTableModel {
 
 	//lista projektów norm
-	MyArrayList listaPN;
+	MyArrayList_v2 listaPN;
 
 	
-	public TickTableModel(MyArrayList listaPN){
+	public TickTableModel(MyArrayList_v2 listaPN){
 		this.listaPN = listaPN;
 	}
 	

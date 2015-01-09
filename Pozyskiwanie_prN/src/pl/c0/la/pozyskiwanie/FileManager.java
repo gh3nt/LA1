@@ -27,7 +27,7 @@ public class FileManager {
 	 * Pobiera informajce o projektach norm z pliku
 	 * @return lista projektów norm
 	 */
-	public MyArrayList pobierzProjekty(String fileName){
+	public MyArrayList_v2 pobierzProjekty(String fileName){
 		
 		//wiersz, w którym zaczynaja siê informacje o projektach (1 w excelu = 0 w javie)
 		int wierszPocz = 7;
@@ -39,7 +39,7 @@ public class FileManager {
 		int nrArkusza = 0;
 		
 		//Lista projektów norm 
-		MyArrayList projekty = new MyArrayList() ;
+		MyArrayList_v2 projekty = new MyArrayList_v2() ;
 		
 		//otwieranie skoroszytu excel
 		XSSFWorkbook workBook = null;
@@ -59,12 +59,12 @@ public class FileManager {
 		//wybierz wiersz pocz¹tkowy		
 		XSSFRow row = sheet.getRow(nrWiersza);
 		
-		//dla kazdego wiersza, który nie jest null, pobierz obiekt ProjektNormy i wstaw do tabeli
+		//dla kazdego wiersza, który nie jest null, pobierz obiekt ProjektNormy_v2 i wstaw do tabeli
 		while(row != null){
 			
 			//sprawdŸ, czy komórki nie s¹ puste (zdarza siê tak jak projekt jest zapisany w kilku scalonych komórkach
 			if(sheet.getRow(nrWiersza).getCell(0).getNumericCellValue() != 0){
-				projekty.add(odczytajProjektNormy(row));
+				projekty.add(odczytajProjektNormy_v2(row));
 			}
 		
 			row = sheet.getRow(++nrWiersza);
@@ -92,7 +92,7 @@ public class FileManager {
 	 * @param wiersz
 	 * @return
 	 */
-	private ProjektNormy odczytajProjektNormy(XSSFRow wiersz){
+	private ProjektNormy_v2 odczytajProjektNormy_v2(XSSFRow wiersz){
 				
 		//nrKt
 		XSSFCell komorka1 = wiersz.getCell(0);
@@ -116,7 +116,7 @@ public class FileManager {
 		XSSFCell komorka5 = wiersz.getCell(4);
 		String tytulEN = komorka5.getStringCellValue();
 
-		ProjektNormy pn =  new ProjektNormy(nrKT, nrProjektu, tytulPL, tytulEN, dataKoncaAnkiety );
+		ProjektNormy_v2 pn =  new ProjektNormy_v2(nrKT, nrProjektu, tytulPL, tytulEN, dataKoncaAnkiety );
 		
 		return pn;
 		
@@ -218,7 +218,7 @@ public class FileManager {
 	/**
 	 * tworzy i otwiera plik Excela z list¹ projektów do ankietyzacji;
 	 */
-	public void eksportujDoExcela(MyArrayList listaPN, String katalog){
+	public void eksportujDoExcela(MyArrayList_v2 listaPN, String katalog){
 		sprawdzKatalog(katalog);
 		
 		//pobierz datê do nazwy pliku
@@ -252,7 +252,7 @@ public class FileManager {
 	 * @param listaPN
 	 * @param sheet1
 	 */
-	private void wypiszDaneZListy(MyArrayList listaPN, Sheet s, XSSFWorkbook wb) {
+	private void wypiszDaneZListy(MyArrayList_v2 listaPN, Sheet s, XSSFWorkbook wb) {
 		//zdefiniuj styl komórek
 		CellStyle style = getStylStandardowy(wb);
 		CellStyle styleB = getStylWyrozniony(wb);
@@ -521,7 +521,7 @@ public class FileManager {
 	 * @param listaPN
 	 * @param katalog
 	 */
-	public void wypiszTekst(MyArrayList listaPN, String katalog) {
+	public void wypiszTekst(MyArrayList_v2 listaPN, String katalog) {
 		//pobierz datê do nazwy pliku
 		String data = pobierzDate();
 
@@ -533,7 +533,7 @@ public class FileManager {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fName), "utf-8"));
 			
 			//dla ka¿dego projektu na liœcie
-			for (ProjektNormy pn : listaPN){
+			for (ProjektNormy_v2 pn : listaPN){
 				if (pn.getZwiazany()){
 					bw.write(pn.getNumer());
 					bw.newLine();
@@ -561,7 +561,7 @@ public class FileManager {
 	/**
 	 * Tworzy plik tesktowy z list¹ projektów norm zawieraj¹cych w nazwie s³owo "Eurokod" lub "Eurocode"
 	 */
-	public void wypiszEurokody(MyArrayList listaPN, String katalog){
+	public void wypiszEurokody(MyArrayList_v2 listaPN, String katalog){
 		//pobierz datê do nazwy pliku
 		String data = pobierzDate();
 
@@ -575,7 +575,7 @@ public class FileManager {
 			
 			
 			//dla ka¿dego projektu na liœcie
-			for (ProjektNormy pn : listaPN){
+			for (ProjektNormy_v2 pn : listaPN){
 				//zamieœæ projekt w pliku, je¿eli zosta³ wskazany jako zwi¹zany i je¿eli ma w nazwie  ze jest eurokodem
 				if (pn.getZwiazany() && (pn.getNazwa().contains("Eurokod") || pn.getNazwa().contains("Eurocode"))){
 					counter++;
