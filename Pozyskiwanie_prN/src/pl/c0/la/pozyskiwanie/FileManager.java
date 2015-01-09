@@ -16,7 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.*;
 
 /**
- * Klasa odpowiedzialna za pobieranie informacji z Internetu (ze stron PKN)
+ * Klasa odpowiedzialna za pobieranie informacji z Internetu (ze stron PKN) oraz eksport danych do excela, i txt
  * wersja pobieraj¹ca projekty z pliku EXCELA!!!!
  * @author Luk
  *
@@ -275,12 +275,17 @@ public class FileManager {
 				} else{
 					r.createCell(5).setCellValue("NIE");
 				}
-				if (listaPN.get(i).getZharmonizowana()){
+				if (listaPN.get(i).getAkredytacjaZC()){
 					r.createCell(6).setCellValue("TAK");
 				} else{
 					r.createCell(6).setCellValue("NIE");
 				}
-				r.createCell(7).setCellValue("");
+				if (listaPN.get(i).getZharmonizowana()){
+					r.createCell(7).setCellValue("TAK");
+				} else{
+					r.createCell(7).setCellValue("NIE");
+				}
+				r.createCell(8).setCellValue("");
 				
 				//ustaw styl standardowydla ka¿dej z komórek
 				for (int j = 0; j < 8; j++){
@@ -290,8 +295,11 @@ public class FileManager {
 				if (listaPN.get(i).getAkredytacja()){
 					r.getCell(5).setCellStyle(styleB);
 				}
-				if (listaPN.get(i).getZharmonizowana()){
+				if (listaPN.get(i).getAkredytacjaZC()){
 					r.getCell(6).setCellStyle(styleB);
+				}
+				if (listaPN.get(i).getZharmonizowana()){
+					r.getCell(7).setCellStyle(styleB);
 				}
 				
 				rowNum++;
@@ -346,8 +354,9 @@ public class FileManager {
 				new Kolumna("nr projektu", 20),
 				new Kolumna("nazwa projektu", 45),
 				new Kolumna("koniec ankiety", 12),
-				new Kolumna("Akredytacja", 9),
-				new Kolumna("Harmonizacja", 9),
+				new Kolumna("Akr. LN", 6),
+				new Kolumna("Akr. ZC", 6),
+				new Kolumna("Harmoniz.", 6),
 				new Kolumna("Zak³ady ITB", 8) 
 		};
 		
@@ -376,7 +385,7 @@ public class FileManager {
 	private void wstawFormulySumowania(Sheet s, XSSFWorkbook wb) {
 		
 		//numer kolumny z kodami zak³adów
-		int kolKZ = 9;
+		int kolKZ = 10;
 		
 		//numer kolumny sumami
 		int kolS = kolKZ + 1;
@@ -409,7 +418,7 @@ public class FileManager {
 			
 			//wstaw formu³e
 			c.setCellStyle(style);
-			String formula = "COUNTIF(H2:H500,\"*" + zaklady[row-1] + "*\")"; //(H2:H500;"*NA*)
+			String formula = "COUNTIF(I2:I500,\"*" + zaklady[row-1] + "*\")"; //(H2:H500;"*NA*)
 			c.setCellType(HSSFCell.CELL_TYPE_FORMULA);
 			c.setCellFormula(formula);
 		}
@@ -532,13 +541,17 @@ public class FileManager {
 		try{
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fName), "utf-8"));
 			
+			bw.write("W najbli¿szym czasie zakoñczy siê ankieta powszechna nastêpuj¹cych projektów norm, zwi¹zanych tematycznie z dzia³alnoœci¹ ITB:");
+			bw.newLine();
+			bw.newLine();
+			
 			//dla ka¿dego projektu na liœcie
 			for (ProjektNormy_v2 pn : listaPN){
 				if (pn.getZwiazany()){
 					bw.write(pn.getNumer());
 					bw.newLine();
 					bw.write("Zharmonizowany: " + (pn.getZharmonizowana() ? "TAK " : "NIE ") 
-							+ " ||  W zakresie akredytacji ITB: " + (pn.getAkredytacja() ? "TAK" : "NIE"));
+							+ " ||  W zakresie akredytacji LN: " + (pn.getAkredytacja() ? "TAK" : "NIE") + " || ZC: " + (pn.getAkredytacjaZC() ? "TAK" : "NIE") );
 					bw.newLine();
 					bw.write(pn.getNazwa());
 					bw.newLine();
@@ -573,6 +586,9 @@ public class FileManager {
 		try{
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fName), "utf-8"));
 			
+			bw.write("Projekty dotycz¹ce eurokodów:");
+			bw.newLine();
+			bw.newLine();
 			
 			//dla ka¿dego projektu na liœcie
 			for (ProjektNormy_v2 pn : listaPN){
