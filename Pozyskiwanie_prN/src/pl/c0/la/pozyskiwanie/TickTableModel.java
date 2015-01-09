@@ -21,7 +21,7 @@ public class TickTableModel extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return 8;
+		return 9;
 	}
 
 	@Override
@@ -50,7 +50,9 @@ public class TickTableModel extends AbstractTableModel {
 					break;
 			case 6: o = listaPN.get(arg0).getAkredytacja();
 					break;
-			case 7: o = listaPN.get(arg0).getZharmonizowana();
+			case 7: o = listaPN.get(arg0).getAkredytacjaZC();
+					break;
+			case 8: o = listaPN.get(arg0).getZharmonizowana();
 					break;
 			default:o = "B³êdna wartoœæ";
 					break;
@@ -83,6 +85,8 @@ public class TickTableModel extends AbstractTableModel {
 					break;
 			case 7: c = Boolean.class;
 					break;
+			case 8: c = Boolean.class;
+					break;
 			default: c = Object.class;
 					break;
 		}
@@ -104,13 +108,15 @@ public class TickTableModel extends AbstractTableModel {
 				break;
 		case 3: cn = "Tytu³"; 
 				break;
-		case 4: cn = "Do ankiety wew.";
+		case 4: cn = "Ank. wew.";
 				break;
 		case 5: cn = "Koniec ankiety";
 				break;
-		case 6: cn = "W akredytacji"; 
+		case 6: cn = "Akred. LN"; 
 				break;
-		case 7: cn = "Zharmonizowana";
+		case 7: cn = "Akred. ZC"; 
+				break;
+		case 8: cn = "Zharmon.";
 				break;
 		default: cn = "n/a";
 				break;
@@ -121,7 +127,7 @@ public class TickTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * okreœla, czy komórki sa edytowalne. Tak - tylko dla kolumny 7 ("Do ankiety wewnêtrznej")
+	 * okreœla, czy komórki sa edytowalne. Tak - tylko dla kolumny ("Do ankiety wewnêtrznej")
 	 */
 	public boolean isCellEditable(int rowIndex, int colIndex){
 		if (colIndex == 4) return true;
@@ -129,7 +135,7 @@ public class TickTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * zmienia wartoœæ komórki (tylko dla kolumny 7)
+	 * zmienia wartoœæ komórki (tylko dla kolumny edytowalnej)
 	 */
 	public void setValueAt(Object val, int rowIndex, int colIndex){
 		if ((colIndex == 4) && (val instanceof Boolean)){

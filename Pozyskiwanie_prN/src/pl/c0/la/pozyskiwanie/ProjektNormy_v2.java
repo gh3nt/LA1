@@ -186,7 +186,7 @@ public class ProjektNormy_v2 implements Serializable{
 	 * @param b
 	 */
 	public void setAkredytacjaZC(boolean b){
-		akredytacja = b;
+		akredytacjaZC = b;
 	}
 	
 	/**
@@ -194,7 +194,7 @@ public class ProjektNormy_v2 implements Serializable{
 	 * @return 
 	 */
 	public boolean getAkredytacjaZC(){
-		return akredytacja;
+		return akredytacjaZC;
 	}
 	
 	

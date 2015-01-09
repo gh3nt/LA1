@@ -121,11 +121,12 @@ public class Panel2 extends JPanel {
 		table.getColumn(table.getColumnName(0)).setPreferredWidth(Math.round((tableSize.width) * 0.04f ));
 		table.getColumn(table.getColumnName(1)).setPreferredWidth(Math.round((tableSize.width) * 0.2f ));
 		table.getColumn(table.getColumnName(2)).setPreferredWidth(Math.round((tableSize.width) * 0.1f));
-		table.getColumn(table.getColumnName(3)).setPreferredWidth(Math.round((tableSize.width) * 0.4f));
+		table.getColumn(table.getColumnName(3)).setPreferredWidth(Math.round((tableSize.width) * 0.35f));
 		table.getColumn(table.getColumnName(4)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
 		table.getColumn(table.getColumnName(5)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
 		table.getColumn(table.getColumnName(6)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
 		table.getColumn(table.getColumnName(7)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
+		table.getColumn(table.getColumnName(8)).setPreferredWidth(Math.round((tableSize.width) * 0.06f));
 		
 		
 		// ?? roziw¹zanie tymczasowe
@@ -135,6 +136,8 @@ public class Panel2 extends JPanel {
 		
 		//zawijanie linii
 		table.getColumnModel().getColumn(3).setCellRenderer(new WrappingCellRenderer());
+		//nie uda³o siê dodaæ wrapping renderera do kolumny z nazwami kt
+		//table.getColumnModel().getColumn(3).setCellRenderer(new WrappingCellRenderer());
 		
 		
 	}
