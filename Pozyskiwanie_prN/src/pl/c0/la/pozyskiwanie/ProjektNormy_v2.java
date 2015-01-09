@@ -2,6 +2,8 @@ package pl.c0.la.pozyskiwanie;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Scanner;
  * @author ght
  *
  */
-public class ProjektNormy implements Serializable{
+public class ProjektNormy_v2 implements Serializable{
 	
 	//pe³ny numer projektu (typu prPN-prEN 21344-3:11/A1...)
 	private String numer;
@@ -46,8 +48,14 @@ public class ProjektNormy implements Serializable{
 	//czy norma jest w zakresie akredytacji LN ITB
 	private boolean akredytacja;
 	
+	//czy norma jest w zakresie akredytacji ITB
+	private boolean akredytacjaZC;
+	
 	//czy jej zakres tematyczny jest zwi¹zany z dzia³alnoœci¹ ITB
 	private boolean zwiazany;
+	
+	//data utworzenia obiektu
+	private Date dataUtworzeniaObiektu;
 	
 	/**
 	 * Konstruktor z za³o¿enia ma przyjmowaæ dane dostêpne na stronie PKN z ogloszeniem o ankiecie powszechnej 
@@ -58,7 +66,7 @@ public class ProjektNormy implements Serializable{
 	 * @param zakresEN
 	 * @param koniecAnkiety
 	 */
-	public ProjektNormy(String numer, String nazwa, String nazwaEN, String zakres, String zakresEN, String koniecAnkiety){
+	public ProjektNormy_v2(String numer, String nazwa, String nazwaEN, String zakres, String zakresEN, String koniecAnkiety){
 		this.numer = numer;
 		this.numerKrotki = skrocNumer(numer);
 		this.nazwa = nazwa;
@@ -66,6 +74,7 @@ public class ProjektNormy implements Serializable{
 		this.zakresPL = zakres;
 		this.zakresEN = zakresEN;
 		this.koniecAnkiety = koniecAnkiety;
+		this.dataUtworzeniaObiektu = GregorianCalendar.getInstance().getTime();
 		
 	}
 	
@@ -77,7 +86,7 @@ public class ProjektNormy implements Serializable{
 	 * @param nazwaEN
 	 * @param koniecAnkiety
 	 */
-	public ProjektNormy(int nrKT, String numer, String nazwa, String nazwaEN, String koniecAnkiety){
+	public ProjektNormy_v2(int nrKT, String numer, String nazwa, String nazwaEN, String koniecAnkiety){
 		this.nrKT = nrKT;
 		this.numer = numer;
 		this.numerKrotki = skrocNumer(numer);
@@ -85,6 +94,7 @@ public class ProjektNormy implements Serializable{
 		this.nazwaEN = nazwaEN;
 		this.koniecAnkiety = koniecAnkiety;
 		this.nazwaKT = SprawdzNazweKT(nrKT);
+		this.dataUtworzeniaObiektu = GregorianCalendar.getInstance().getTime();
 	}
 	
 	
@@ -135,6 +145,10 @@ public class ProjektNormy implements Serializable{
 		return nrKT;
 	}
 	
+	public Date getDataUtworzenia(){
+		return dataUtworzeniaObiektu;
+	}
+	
 	/**
 	 * Czy projekt normy jest na liœcie norm zharmonizowanych
 	 * @param b
@@ -152,7 +166,7 @@ public class ProjektNormy implements Serializable{
 	}
 	
 	/**
-	 * Czy projekt normy jest w zakresie akredytacjiITB
+	 * Czy projekt normy jest w zakresie akredytacji LN ITB
 	 * @param b
 	 */
 	public void setAkredytacja(boolean b){
@@ -160,10 +174,26 @@ public class ProjektNormy implements Serializable{
 	}
 	
 	/**
-	 * Czy projekt normy jest w zakresie akredytacjiITB
+	 * Czy projekt normy jest w zakresie akredytacji LN ITB
 	 * @return 
 	 */
 	public boolean getAkredytacja(){
+		return akredytacja;
+	}
+	
+	/**
+	 * Czy projekt normy jest w zakresie akredytacji ZC ITB
+	 * @param b
+	 */
+	public void setAkredytacjaZC(boolean b){
+		akredytacja = b;
+	}
+	
+	/**
+	 * Czy projekt normy jest w zakresie akredytacji ZC ITB
+	 * @return 
+	 */
+	public boolean getAkredytacjaZC(){
 		return akredytacja;
 	}
 	
@@ -252,17 +282,20 @@ public class ProjektNormy implements Serializable{
 	/**
 	 * na podstawie podanych plików (zakres akredytacji, wykaz norm zharmonizowanych) ustawia odpowidnie flagi
 	 *   - czy projekt dotyczy normy zharmonizowanej 
-	 *   - czy projekt dotyczy normy z zakresu akredytacji ITB
+	 *   - czy projekt dotyczy normy z zakresu akredytacji LN ITB
+	 *   - czy projekt dotyczy normy z zakresu akredytacji ZC ITB
 	 * @param tekstAkredytacja
 	 * @param tekstZharmonizowane
 	 */
-	public void uzupelnijAkredytacjaZharmonizowane(String plikAkredytacja, String plikZharmonizowane){
+	public void uzupelnijAkredytacjaZharmonizowane(String plikAkredytacja, String plikAkredytacjaZC, String plikZharmonizowane){
+		
 		this.uzupelnijAkredytacja(plikAkredytacja);
+		this.uzupelnijAkredytacjaZC(plikAkredytacjaZC);
 		this.uzupelnijZharmonizowane(plikZharmonizowane);
 		
-		//je¿eli przynajmniej jedna flaga (akredytacja lub zharmonizowany) jest ustawiona,
+		//je¿eli przynajmniej jedna flaga (akredytacja, akredytacja ZC lub zharmonizowany) jest ustawiona,
 		//domyœlnie zaznacz projekt jako zwi¹zany z zakresem dzia³alnoœci ITB i przeznaczony do ankiety wewnêtrznej/
-		if (this.getAkredytacja() || this.getZharmonizowana()) this.setZwiazany(true);
+		if (this.getAkredytacja() || this.getZharmonizowana() || this.getAkredytacjaZC()) this.setZwiazany(true);
 	}
 	
 	private void uzupelnijAkredytacja(String plikAkredytacja){
@@ -281,6 +314,35 @@ public class ProjektNormy implements Serializable{
 				l = sc.nextLine();
 				if ((l.contains(" " + nr + " ")) || (l.contains(" " + nr + ":")) || (l.contains("-" + nr + " ")) || (l.contains("-" + nr + ":"))){
 					this.setAkredytacja(true);
+					break;
+				}
+			}
+		
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			if (sc!=null)sc.close();
+		}
+		
+
+	}
+	
+	private void uzupelnijAkredytacjaZC(String plikAkredytacjaZC){
+		String nr = this.getNumerKrotki();
+		
+		Scanner sc = null;
+		String l = "";
+		
+
+		try{
+			
+			sc = new Scanner(new File(plikAkredytacjaZC), "UTF-8");
+			//sprawdz linia po linii ca³y plik, czy wystepuje numer skrócony normy w odpowiedniej formie.
+			//Jak wyst¹pi - przerwij pêtlê, ustaw odpowiedni znacznik (projekt normy jest w zakresie akredytacji
+			while(sc.hasNextLine()){
+				l = sc.nextLine();
+				if ((l.contains(" " + nr + " ")) || (l.contains(" " + nr + ":")) || (l.contains("-" + nr + " ")) || (l.contains("-" + nr + ":"))){
+					this.setAkredytacjaZC(true);
 					break;
 				}
 			}

@@ -160,6 +160,7 @@ public class FileManager {
 			fos.close();
 		} catch(Exception e){
 			e.printStackTrace();
+			System.out.println(file);
 		}
 		return o;
 	}
@@ -473,12 +474,16 @@ public class FileManager {
 	 * @param listaPrzetwarzanych
 	 * @param plikPrzetwarzane
 	 */
-	public void zapiszListePrzetwarzanych(MyArrayList listaPrzetwarzanych,
+	public void zapiszListePrzetwarzanych(MyArrayList_v2 listaPrzetwarzanych,
 			String plikPrzetwarzane) {
-		MyArrayList starePrzetwarzane = (MyArrayList)this.deserializeObject(plikPrzetwarzane);
-		if (starePrzetwarzane!=null) starePrzetwarzane.usunBardzoStare();
-		if (starePrzetwarzane!=null) listaPrzetwarzanych.addAll(starePrzetwarzane);
+		MyArrayList_v2 starePrzetwarzane = (MyArrayList_v2)this.deserializeObject(plikPrzetwarzane);
+		if (starePrzetwarzane!=null){
+			starePrzetwarzane.usunBardzoStare();
+			listaPrzetwarzanych.addAll(starePrzetwarzane);
+		}
 		this.serializeObject(listaPrzetwarzanych, plikPrzetwarzane);
+		
+		
 		
 	}
 	

@@ -26,25 +26,26 @@ public class Panel1 extends JPanel {
 				
 		setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField.setBounds(23, 78, 230, 20);
-		add(textField);
-		textField.setColumns(10);
+		//kroki procedury
+		
+		//krok 1
+		JLabel lblOtwrzStron = new JLabel("1. Otwórz stronê WWWW ankiety powszechnej PKN, zaznacz wszystko i skopiuj do schowka (ctrl + c)");
+		lblOtwrzStron.setBounds(10, 11, 629, 35);
+		add(lblOtwrzStron);
 		
 		JLabel lblAdresStronyAnkiety = new JLabel("Adres strony ankiety powszechnej:");
 		lblAdresStronyAnkiety.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblAdresStronyAnkiety.setBounds(23, 53, 182, 14);
+		lblAdresStronyAnkiety.setBounds(23, 43, 182, 14);
 		add(lblAdresStronyAnkiety);
 		
-		JButton btnOtwrz = new JButton("Otw\u00F3rz");
+		JButton btnOtwrz = new JButton("1. Otwórz stronê");
 		btnOtwrz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controller.otworzStrone(textField.getText());
 			}
 		});
-		btnOtwrz.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnOtwrz.setBounds(263, 77, 89, 23);
+		//btnOtwrz.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnOtwrz.setBounds(263, 67, 140, 23);
 		add(btnOtwrz);
 		
 		JButton btnNewButton = new JButton("Przywróæ domyœlny");
@@ -54,28 +55,33 @@ public class Panel1 extends JPanel {
 				uzupelnijPole1();
 			}
 		});
-		btnNewButton.setBounds(263, 100, 140, 23);
+		btnNewButton.setBounds(263, 90, 140, 23);
 		add(btnNewButton);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField.setBounds(23, 68, 230, 20);
+		add(textField);
+		textField.setColumns(10);
+		
+		//krok 2		
+		JLabel lblOtworzTymczasowy = new JLabel("2. Otwórz tymczasowy plik xlsx i wklej informacje (ctrl+v) w polu A1");
+		lblOtworzTymczasowy.setBounds(10, 123, 503, 14);
+		add(lblOtworzTymczasowy);
 		
 		JLabel lblNazwaPlikuExcela = new JLabel("Nazwa pliku Excela z informacjami o projektach:");
 		lblNazwaPlikuExcela.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNazwaPlikuExcela.setBounds(23, 136, 230, 14);
+		lblNazwaPlikuExcela.setBounds(23, 148, 380, 14);
 		add(lblNazwaPlikuExcela);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_1.setBounds(23, 161, 230, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnOtwrz_1 = new JButton("Otw\u00F3rz");
+		JButton btnOtwrz_1 = new JButton("2. Otwórz plik XLSX");
 		btnOtwrz_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.otworzPlikExcela(textField_1.getText());
 			}
 		});
-		btnOtwrz_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnOtwrz_1.setBounds(263, 160, 89, 23);
+		//btnOtwrz_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnOtwrz_1.setBounds(263, 172, 140, 23);
 		add(btnOtwrz_1);
 		
 		JButton btnPrzywrDomylny = new JButton("Przywr\u00F3\u0107 domy\u015Blny");
@@ -85,28 +91,67 @@ public class Panel1 extends JPanel {
 			}
 		});
 		btnPrzywrDomylny.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnPrzywrDomylny.setBounds(263, 183, 140, 23);
+		btnPrzywrDomylny.setBounds(263, 195, 140, 23);
 		add(btnPrzywrDomylny);
 		
-		JButton btnRozpocznij = new JButton("Rozpocznij");
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_1.setBounds(23, 173, 230, 20);
+		add(textField_1);
+		textField_1.setColumns(10);
+		
+		//krok 3		
+		JLabel lblZapiszPlik = new JLabel("3. Zamknij plik XLSX zapisuj¹c wprowadzone zmiany (nie zmieniaj nazwy ani katalogu!)");
+		lblZapiszPlik.setBounds(10, 234, 503, 14);
+		add(lblZapiszPlik);
+		
+		//krok 4
+		JButton btnRozpocznij = new JButton("4. Rozpocznij");
 		btnRozpocznij.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.rozpocznij(textField_1.getText());
 			}
 		});
-		btnRozpocznij.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		//btnRozpocznij.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnRozpocznij.setForeground(Color.RED);
 		btnRozpocznij.setBackground(UIManager.getColor("Button.background"));
-		btnRozpocznij.setBounds(23, 244, 103, 35);
+		btnRozpocznij.setBounds(10, 271, 120, 35);
 		add(btnRozpocznij);
 		
-		JButton otworzAkredytacja = new JButton("zakres akredytacji");
+		//uzupe³nij pola tekstowe domyœlnymi danymi
+		uzupelnijPole1();
+		uzupelnijPole2();
+		
+		//dane systemowe
+		JLabel lblWprowadzanieDanych = new JLabel("Dane systemowe");
+		lblWprowadzanieDanych.setBounds(32, 341, 131, 14);
+		lblWprowadzanieDanych.setFont(new Font("Tahoma", Font.PLAIN, 11));;
+		add(lblWprowadzanieDanych);
+		
+
+		
+		JButton btnNewButton_1 = new JButton("zakres akredytacji zc");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					controller.otworzPlik(parent.getPlikAkredytacjaZC());
+			}
+		});
+		btnNewButton_1.setBounds(32, 366, 157, 23);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		add(btnNewButton_1);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(32, 338, 658, 2);
+		add(separator);
+		
+		JButton otworzAkredytacja = new JButton("zakres akredytacji LN");
 		otworzAkredytacja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controller.otworzPlik(parent.getPlikAkredytacja());
 			}
 		});
-		otworzAkredytacja.setBounds(495, 11, 157, 23);
+		otworzAkredytacja.setBounds(199, 366, 157, 23);
 		otworzAkredytacja.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		add(otworzAkredytacja);
 		
@@ -116,7 +161,7 @@ public class Panel1 extends JPanel {
 				controller.otworzPlik(parent.getPlikZharmonizowane());
 			}
 		});
-		normyZharmonizowane.setBounds(495, 45, 157, 23);
+		normyZharmonizowane.setBounds(366, 366, 157, 23);
 		normyZharmonizowane.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		add(normyZharmonizowane);
 		
@@ -126,13 +171,10 @@ public class Panel1 extends JPanel {
 				controller.usunPlik(parent.getPlikPrzetwarzane());
 			}
 		});
-		wyczyscPrzetwarzane.setBounds(495, 77, 157, 23);
+		wyczyscPrzetwarzane.setBounds(533, 366, 157, 23);
 		wyczyscPrzetwarzane.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		add(wyczyscPrzetwarzane);
 		
-		uzupelnijPole1();
-		uzupelnijPole2();
-
 	}
 	
 	//uzupelnij pole adresu www domyœlnym adresem

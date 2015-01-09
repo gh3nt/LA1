@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	
 	//nazwa okna
-	String no = "Pozyskiwanie informacji o projektach norm v 0.5 ";
+	String no = "Pozyskiwanie informacji o projektach norm v 0.6 ";
 	
 	//WSZYSTKIE ADRESY PLIKÓW SA ZMIENIANE W Konstruktorze - dodawana jest œcie¿ka bezwzglêdna
 	//adres strony ankiety powszechnej
@@ -34,10 +34,13 @@ public class MainFrame extends JFrame {
 	//sciezka dostepu do pliku zserializowanej listy projektów norm wczeœniej przetwarzanych
 	private String plikPrzetwarzane = "\\resources\\przetwarzane.list";
 	
-	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
+	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji LN ITB
 	private String plikAkredytacja = "\\resources\\akredytacja.txt";
+	
+	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ZC ITB 
+	private String plikAkredytacjaZC = "\\resources\\akredytacjaZC.txt";
 		
-	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji ITB
+	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o normach zharmonizowanych
 	private String plikZharmonizowane = "\\resources\\zharmonizowane.txt";
 	
 	//sciezka dostêpu do katalogu na wyeksportowane arkusze excela do ankietyzacji 
@@ -76,20 +79,23 @@ public class MainFrame extends JFrame {
 		//ustaw sciezke dostêpu do plików
 		ustawPliki();
 		
+		//ustaw tytu³ okna
 		this.setTitle(no);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 637, 378);
+		setBounds(100, 100, 800, 500);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		//dodaj panel dziel¹cy przestrzeñ na 2 czêœci
 		splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		contentPane.add(splitPane, BorderLayout.CENTER);
 		
+		//panel górny - informacja o programie (wersja, autor)
 		JPanel panel = new JPanel();
 		splitPane.setLeftComponent(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -99,13 +105,14 @@ public class MainFrame extends JFrame {
 		lblPozyskiwanieInformacjiO.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblPozyskiwanieInformacjiO);
 		
-		JLabel lblAutorukaszAdamus = new JLabel("Autor: \u0141ukasz Adamus");
+		JLabel lblAutorukaszAdamus = new JLabel("Autor: £ukasz Adamus");
 		lblAutorukaszAdamus.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblAutorukaszAdamus.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblAutorukaszAdamus);
 		
-		//JPanel panel_1 = new JPanel();
+		//Panel dolny - pierwssze okno
 		splitPane.setRightComponent(new Panel1(this));
+		
 	}
 	
 
@@ -113,6 +120,7 @@ public class MainFrame extends JFrame {
 	private void ustawPliki() {
 		plik = getDecodedPath() + plik;// TODO Auto-generated method stub
 		plikPrzetwarzane = getDecodedPath() + plikPrzetwarzane;
+		plikAkredytacjaZC = getDecodedPath() + plikAkredytacjaZC;
 		plikAkredytacja = getDecodedPath() + plikAkredytacja;
 		plikZharmonizowane = getDecodedPath() + plikZharmonizowane;
 		katalogEksport = getDecodedPath() + katalogEksport;
@@ -208,6 +216,10 @@ public class MainFrame extends JFrame {
 	
 	public String getPlikAkredytacja(){
 		return this.plikAkredytacja;
+	}
+	
+	public String getPlikAkredytacjaZC(){
+		return this.plikAkredytacjaZC;
 	}
 	
 	public String getPlikZharmonizowane(){
