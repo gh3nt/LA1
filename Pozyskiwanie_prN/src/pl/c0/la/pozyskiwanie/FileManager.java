@@ -288,7 +288,7 @@ public class FileManager {
 				r.createCell(8).setCellValue("");
 				
 				//ustaw styl standardowydla ka¿dej z komórek
-				for (int j = 0; j < 8; j++){
+				for (int j = 0; j < 9; j++){
 					r.getCell(j).setCellStyle(style);
 				}
 				//pogrubiona czcionka dla akredytacja lub harmonizacja TAK
@@ -357,7 +357,7 @@ public class FileManager {
 				new Kolumna("Akr. LN", 6),
 				new Kolumna("Akr. ZC", 6),
 				new Kolumna("Harmoniz.", 6),
-				new Kolumna("Zak³ady ITB", 8) 
+				new Kolumna("Zak³ady ITB", 9) 
 		};
 		
 		Sheet s = wb.createSheet(data);

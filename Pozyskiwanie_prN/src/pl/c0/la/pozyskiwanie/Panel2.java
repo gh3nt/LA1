@@ -25,6 +25,9 @@ public class Panel2 extends JPanel {
 	//przycisk "Eksportuj"
 	private JButton eksportuj;
 	
+	//przycisk "Wróæ"
+	private JButton wroc;
+	
 	//lista projektów norm
 	private MyArrayList_v2 listaPN;
 	
@@ -68,6 +71,10 @@ public class Panel2 extends JPanel {
 		//dodaj przycisk "Eksportuj"
 		eksportuj = stworzEksportuj();
 		add(eksportuj);
+		
+		//dodaj przycisk "wroc"
+		wroc = stworzWroc();
+		add(wroc);
 	}
 	
 	private JButton stworzEksportuj() {
@@ -84,13 +91,33 @@ public class Panel2 extends JPanel {
 			}
 		});
 		return b;
-		
-		
+			
 	}
 	
 	private void ustawPrzyciskEksportuj(JButton b){
 		if (b!=null){
 			b.setBounds(5, sp.getHeight() + 10, 100, 25);
+		}
+	}
+	
+	private JButton stworzWroc() {
+		JButton b = new JButton("Wróæ");
+		b.setFont(new Font("Tahoma", Font.BOLD, 11));
+		//b.setBounds(5, sp.getHeight() + 10, 100, 25);
+		ustawPrzyciskWroc(b);
+		b.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				//wroc do panelu 1
+				parent.wroc();
+			}
+		});
+		return b;
+			
+	}
+	
+	private void ustawPrzyciskWroc(JButton b){
+		if (b!=null){
+			b.setBounds(sp.getWidth() - 110, sp.getHeight() + 10, 100, 25);
 		}
 	}
 
@@ -101,6 +128,7 @@ public class Panel2 extends JPanel {
 		ustawSzerokoscKolumn(table);
 		
 		ustawPrzyciskEksportuj(eksportuj);
+		ustawPrzyciskWroc(wroc);
 	}
 	
 	//ustawia szerokoœæ wszystkich kolumn w tabeli

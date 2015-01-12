@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 	private String plik = "\\resources\\wklej_projekty.xlsx";
 	
 	//sciezka dostepu do pliku zserializowanej listy projektów norm wczeœniej przetwarzanych
-	private String plikPrzetwarzane = "\\resources\\przetwarzane.list";
+	private String plikPrzetwarzane = "\\resources\\przetwarzane_v2.list";
 	
 	//sciezka dostêpu do pliku txt, gdzie bêd¹ informacje o zakresie akredytacji LN ITB
 	private String plikAkredytacja = "\\resources\\akredytacja.txt";
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	private String plikZharmonizowane = "\\resources\\zharmonizowane.txt";
 	
 	//sciezka dostêpu do katalogu na wyeksportowane arkusze excela do ankietyzacji 
-	private String katalogEksport = "\\resources\\eksport\\";
+	private String katalogEksport = "\\export\\";
 	
 	//splitPane, na którym bêd¹ zmieniane panele podrzêdne
 	private JSplitPane splitPane;
@@ -115,8 +115,6 @@ public class MainFrame extends JFrame {
 		
 	}
 	
-
-
 	private void ustawPliki() {
 		plik = getDecodedPath() + plik;// TODO Auto-generated method stub
 		plikPrzetwarzane = getDecodedPath() + plikPrzetwarzane;
@@ -182,6 +180,14 @@ public class MainFrame extends JFrame {
 		});
 
 		pokazPanel(panel2);
+	}
+	
+	/**
+	 * wraca z kroku 2 do 1 (³aduje ponownie panel 1 do dolnego panelu)
+	 */
+	public void wroc(){
+		splitPane.setRightComponent(new Panel1(this));
+		panel2 = null;
 	}
 	
 	/**

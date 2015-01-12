@@ -95,7 +95,7 @@ public class Test {
 		lista.ustawAkredytacjaZharmonizowane(mf.getPlikAkredytacja(), mf.getPlikAkredytacjaZC(), mf.getPlikZharmonizowane());
 		
 		for (ProjektNormy_v2 pn :lista){
-			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | " + pn.getAkredytacja() );
+			System.out.println(pn.getNumer() + " | " + pn.getNumerKrotki() + " | LN: " + pn.getAkredytacja() + " | ZC: " + pn.getAkredytacjaZC() );
 		}
 		
 		
